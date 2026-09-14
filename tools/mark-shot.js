@@ -478,5 +478,5 @@ function main() {
 module.exports = { updateManifest, appendCatalog, nextTakeId, getTaskSnapshot, resolveAttempt, parseArgs, recordTaskFailure };
 
 if (require.main === module) {
-  process.exit(main());
+  process.exitCode = main();
 }

@@ -667,5 +667,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  process.exit(main() || 0);
+  process.exitCode = main() || 0;
 }

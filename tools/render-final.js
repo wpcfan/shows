@@ -545,5 +545,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  process.exit(main(process.argv));
+  process.exitCode = main(process.argv);
 }

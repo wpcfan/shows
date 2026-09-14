@@ -407,5 +407,5 @@ function main() {
 module.exports = { validateTake, getTakeByTimelineEntry, resolutionToSize, validateTimePoint, escapeConcatPath, collectBlockedShotErrors, collectEditApprovalProblems };
 
 if (require.main === module) {
-  process.exit(main());
+  process.exitCode = main();
 }

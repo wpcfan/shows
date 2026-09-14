@@ -50,7 +50,8 @@ function shotBase(id, opts = {}) {
 }
 
 async function runAsyncTests() {
-  for (const { name, fn } of asyncTests) {
+  const tests = asyncTests.splice(0, asyncTests.length);
+  for (const { name, fn } of tests) {
     try { await fn(); passed++; console.log(`  ✓ ${name}`); }
     catch (e) { failed++; console.error(`  ✗ ${name}\n    ${e.message}`); }
   }

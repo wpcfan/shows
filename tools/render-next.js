@@ -806,5 +806,5 @@ function main() {
 module.exports = { createRenderTask, fileContentHash, computeNextTakeId, computeNextKeyframeTakeId, computeNextTtsTakeId, resolveInputPath, frozenAssetsIntact, isTaskRetryWaiting, collectRetryWaits, isDispatchableTask, supersedeActiveTasksForShot, genAttemptId, pushAttempt, targetStage, shotHasSelectedKeyframe, selectedTtsTake, findUsableTtsTake, shotStageHash, resolveContinueFromOffsetFrames, resolveContinueFromUpstream, continueFromBindingIntact };
 
 if (require.main === module) {
-  process.exit(main());
+  process.exitCode = main();
 }

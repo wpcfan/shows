@@ -338,5 +338,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main().then(code => process.exit(code));
+  main().then(code => { process.exitCode = code || 0; });
 }

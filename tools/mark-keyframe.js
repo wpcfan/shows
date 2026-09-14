@@ -359,5 +359,5 @@ function main() {
 module.exports = { updateKeyframeManifest, appendKeyframeCatalog, nextKeyframeTakeId, reservedKeyframeIds, shotStageHash };
 
 if (require.main === module) {
-  process.exit(main());
+  process.exitCode = main();
 }
