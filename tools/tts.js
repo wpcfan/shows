@@ -287,24 +287,24 @@ function usage() {
 
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
-  if (!opts.episodeDir) { usage(); process.exit(1); }
+  if (!opts.episodeDir) { usage(); return 1; }
   const absEpDir = path.isAbsolute(opts.episodeDir) ? opts.episodeDir : path.resolve(opts.episodeDir);
 
   if (opts.envFile) {
     try { loadEnvFile(path.resolve(opts.envFile)); }
-    catch (e) { console.error(`ERROR: cannot read --env-file: ${e.message}`); process.exit(1); }
+    catch (e) { console.error(`ERROR: cannot read --env-file: ${e.message}`); return 1; }
   }
 
   if (opts.list) {
     try { listTtsTasks(absEpDir); }
-    catch (e) { console.error(`ERROR: ${e.message}`); process.exit(2); }
-    return;
+    catch (e) { console.error(`ERROR: ${e.message}`); return 2; }
+    return 0;
   }
 
   if (!opts.taskId) {
     console.error('ERROR: --task <task-id> is required (or use --list)');
     usage();
-    process.exit(1);
+    return 1;
   }
 
   try {
@@ -314,7 +314,7 @@ async function main() {
     if (kind === 'invalid') {
       console.error(`ERROR: tts invalid: ${e.message}`);
       console.error('  (input/state error — nothing was recorded and no attempt should be reported)');
-      process.exit(2);
+      return 2;
     }
     console.error(`ERROR: tts failed (${kind}): ${e.message}`);
     const t = e.ttsTask;
@@ -322,7 +322,7 @@ async function main() {
       const billed = kind === 'hard' ? ' --billed' : '';
       console.error(`  report it: node tools/mark-shot.js ${opts.episodeDir} ${t.shot_id} --failed --task ${t.task_id} --kind ${kind}${billed}`);
     }
-    process.exit(3);
+    return 3;
   }
 }
 
@@ -338,5 +338,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  main().then(code => process.exit(code));
 }

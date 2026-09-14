@@ -791,7 +791,7 @@ function main() {
 
   if (!episodeDir) {
     console.error('Usage: node tools/build-timeline.js <episode-dir> [--out <path>] [--dry-run]');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(episodeDir) ? episodeDir : path.resolve(episodeDir);
 
@@ -800,7 +800,7 @@ function main() {
     edit = yaml.load(fs.readFileSync(path.join(absEpDir, 'edit.yaml'), 'utf8'));
   } catch {
     console.error(`edit.yaml not found in ${absEpDir}`);
-    process.exit(2);
+    return 2;
   }
 
   let manifest;
@@ -808,7 +808,7 @@ function main() {
     manifest = readJsonFile(path.join(absEpDir, 'manifest.json'), { label: 'manifest.json' });
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(2);
+    return 2;
   }
 
   // 秒制条目缺 out_point → ffprobe 该条目的 take(仅 CLI)
@@ -835,21 +835,21 @@ function main() {
     });
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
 
   const validation = validateTimeline(timeline);
   if (!validation.ok) {
     console.error('ERROR: timeline validation failed:');
     for (const e of validation.errors) console.error(`  ${e}`);
-    process.exit(4);
+    return 4;
   }
 
   const json = JSON.stringify(timeline, null, 2);
 
   if (dryRun) {
     console.log(json);
-    return;
+    return 0;
   }
 
   const outPath = customOut
@@ -873,5 +873,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }

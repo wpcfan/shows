@@ -269,7 +269,7 @@ function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (!opts.episodeDir || !opts.kind) {
     console.error(USAGE);
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(opts.episodeDir) ? opts.episodeDir : path.resolve(opts.episodeDir);
   try {
@@ -287,7 +287,7 @@ function main() {
     }
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
 }
 
@@ -297,5 +297,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }

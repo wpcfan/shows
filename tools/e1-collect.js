@@ -405,13 +405,13 @@ function usage() {
 async function main() {
   let args;
   try { args = parseArgs(process.argv.slice(2)); }
-  catch (e) { console.error(`ERROR: ${e.message}`); process.exit(1); }
-  if (args.help || !args.config) { usage(); process.exit(args.help ? 0 : 1); }
+  catch (e) { console.error(`ERROR: ${e.message}`); return 1; }
+  if (args.help || !args.config) { usage(); return args.help ? 0 : 1; }
 
   const configPath = path.resolve(args.config);
   let config;
   try { config = JSON.parse(fs.readFileSync(configPath, 'utf8')); }
-  catch (e) { console.error(`ERROR: cannot read config ${configPath}: ${e.message}`); process.exit(3); }
+  catch (e) { console.error(`ERROR: cannot read config ${configPath}: ${e.message}`); return 3; }
   const configDir = path.dirname(configPath);
 
   let preregMeta = null;
@@ -422,7 +422,7 @@ async function main() {
       if (!preregMeta) console.warn(`WARN: ${args.prereg} has no "meta" object — ignored`);
     } catch (e) {
       console.error(`ERROR: cannot read prereg ${args.prereg}: ${e.message}`);
-      process.exit(3);
+      return 3;
     }
   }
 
@@ -448,7 +448,7 @@ async function main() {
       console.log(`  by_scene: ${JSON.stringify(result.plan.by_scene)}`);
       console.log('sample matrix:');
       for (const id of result.plan.sample_ids) console.log(`  ${id}`);
-      process.exit(0);
+      return 0;
     }
     const done = result.dataset.samples.length;
     const failed = [...result.records.values()].filter(r => r.status === 'failed').length;
@@ -457,10 +457,10 @@ async function main() {
     console.log(`  ledger: ${JSON.stringify({ requests: result.ledger.requests, successes: result.ledger.successes, failures: result.ledger.failures })}`);
     console.log(`  records: ${result.recordsPath}`);
     console.log(`  synthetic: ${result.synthetic}` + (result.synthetic ? ' (mock/demo only — NOT interface-capability evidence)' : ''));
-    process.exit(0);
+    return 0;
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
 }
 
@@ -488,5 +488,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  main().then(code => process.exit(code));
 }

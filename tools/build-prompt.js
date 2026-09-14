@@ -231,13 +231,13 @@ function main() {
   const [episodeDir, shotId] = process.argv.slice(2);
   if (!episodeDir || !shotId) {
     console.error('Usage: node tools/build-prompt.js <episode-dir> <shot-id>');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(episodeDir) ? episodeDir : path.resolve(episodeDir);
   const script = loadScript(absEpDir);
-  if (!script) { console.error(`script.yaml not found in ${absEpDir}`); process.exit(2); }
+  if (!script) { console.error(`script.yaml not found in ${absEpDir}`); return 2; }
   const found = findShot(script, shotId);
-  if (!found) { console.error(`shot ${shotId} not found`); process.exit(3); }
+  if (!found) { console.error(`shot ${shotId} not found`); return 3; }
 
   const sgText = readText(path.join(ROOT, 'style-guide.md'));
   const styleGuide = parseStyleGuide(sgText);
@@ -252,4 +252,4 @@ module.exports = {
   loadScript, findShot, ROOT
 };
 
-if (require.main === module) main();
+if (require.main === module) process.exit(main());

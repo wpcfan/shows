@@ -30,314 +30,16 @@ const { intentFlags } = require('./intent');
 const { verifyFinalMedia, checkAvLength } = require('./probe');
 const { validateApprovals, clipList, findShot, findTake, absTakePath } = require('./approvals');
 const { resolveCover } = require('./cover');
-const { readJsonFile, isTaskSuperseded } = require('./build-manifest');
-const { LEDGER_STAGES, LEDGER_COUNTERS } = require('./quota-ledger');
+const { readJsonFile } = require('./build-manifest');
 const { collectUnresolvedOverflow } = require('./dialogue');
 const { verifyLoudness, analyzeLoudness } = require('./audio');
-
-const TOOL_NAME = 'gate';
-const TOOL_VERSION = '1.0.0';
-
-/** SRT cue 越界容差（PRD §4：cues 全部落在 [0, final_duration]；±50ms 容差） */
-const SRT_BOUNDS_TOLERANCE = 0.05;
-/** 保守缺省 intent：无 intent 视为音频不适用（不得由产物反推，PRD §4） */
-const DEFAULT_INTENT = { dialogue: false, audio: 'none', subtitles: 'none', silent: true };
-
-// ---------------------------------------------------------------------------
-// GATE_ITEMS — §5 适用矩阵（写死，与 PRD 表逐行一致）
-// ---------------------------------------------------------------------------
-
-const GATE_ITEMS = [
-  { id: '1', title: 'M0 regression suite all green', v1: 'applicable', v2: 'applicable' },
-  { id: '2', title: 'schema v1/v2 fixtures pass', v1: 'applicable', v2: 'applicable' },
-  { id: '3', title: 'E1 report exists and interface version matches', v1: 'not_applicable', v2: 'applicable' },
-  { id: '4a', title: 'no unresolved rejected/stale/blocked take dependency', v1: 'applicable', v2: 'applicable' },
-  { id: '4b', title: 'all bound approval records valid', v1: 'not_applicable', v2: 'applicable' },
-  { id: '5', title: 'every timeline clip resolves to a selected video take', v1: 'applicable', v2: 'applicable' },
-  { id: '6', title: 'dialogue overflow = 0 / spill constraints', v1: 'not_applicable', v2: 'applicable' },
-  { id: '7', title: 'subtitle cues within [0, final_duration]; artifact required when requires_subtitles', v1: 'applicable', v2: 'applicable' },
-  { id: '8', title: 'A/V final stream length error < 100ms', v1: 'applicable', v2: 'applicable' },
-  { id: '9', title: 'media attribute probe + full decode verification', v1: 'applicable', v2: 'applicable' },
-  { id: '10', title: 'loudness within target', v1: 'not_applicable', v2: 'applicable' },
-  { id: '11', title: 'cover can be generated', v1: 'not_applicable', v2: 'applicable' },
-  { id: '12', title: 'quota ledger reconciles with event stream', v1: 'not_applicable', v2: 'applicable' },
-  { id: '13', title: 'all cut_join junction approvals valid', v1: 'not_applicable', v2: 'applicable' },
-  { id: '14', title: 'determinism under the same toolchain', v1: 'applicable', v2: 'applicable' },
-];
-
-const GATE_TITLES = GATE_ITEMS.reduce((acc, it) => { acc[it.id] = it.title; return acc; }, {});
-
-function isV1Schema(schemaVersion) {
-  return schemaVersion == null || Number(schemaVersion) === 1;
-}
-
-function mk(id, status, { reasons = [], notes = [], applicable = true } = {}) {
-  return { id, title: GATE_TITLES[id] || id, status, applicable, reasons, notes };
-}
-
-// ---------------------------------------------------------------------------
-// parseSrtCues — Gate #7 字幕产物解析（纯函数）
-// ---------------------------------------------------------------------------
-
-function srtStampToSeconds(hh, mm, ss, ms) {
-  const h = Number(hh);
-  const m = Number(mm);
-  const s = Number(ss);
-  // ms 允许 1..3 位：按位补齐（'.5' → 500ms）
-  const milli = Number(String(ms).padEnd(3, '0'));
-  if (![h, m, s, milli].every(Number.isFinite) || m > 59 || s > 59) return null;
-  return h * 3600 + m * 60 + s + milli / 1000;
-}
-
-/**
- * 解析 SRT 文本为 cue 数组。容忍 UTF-8 BOM 与 CRLF；坏格式抛错（fail-closed）。
- * @param {string} text
- * @returns {Array<{index:number,start:number,end:number,text:string}>}
- */
-function parseSrtCues(text) {
-  if (typeof text !== 'string') {
-    throw new Error(`parseSrtCues requires a string, got ${JSON.stringify(text)}`);
-  }
-  const src = text.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
-  const blocks = src.split(/\n{2,}/).filter(b => b.trim() !== '');
-  const cues = [];
-  const timing = /^(\d{1,}):(\d{2}):(\d{2})[,.](\d{1,3})\s*-->\s*(\d{1,}):(\d{2}):(\d{2})[,.](\d{1,3})\s*$/;
-  blocks.forEach((block, bi) => {
-    const lines = block.split('\n');
-    let i = 0;
-    if (/^\d+$/.test(lines[0].trim())) i = 1;
-    const timingLine = lines[i];
-    if (timingLine === undefined || timingLine.trim() === '') {
-      throw new Error(`SRT block ${bi + 1} is malformed: missing timing line`);
-    }
-    const m = timing.exec(timingLine.trim());
-    if (!m) {
-      throw new Error(`SRT block ${bi + 1} is malformed: bad timing line ${JSON.stringify(timingLine)}`);
-    }
-    const start = srtStampToSeconds(m[1], m[2], m[3], m[4]);
-    const end = srtStampToSeconds(m[5], m[6], m[7], m[8]);
-    if (start === null || end === null) {
-      throw new Error(`SRT block ${bi + 1} has an invalid timestamp ${JSON.stringify(timingLine)}`);
-    }
-    cues.push({
-      index: cues.length + 1,
-      start,
-      end,
-      text: lines.slice(i + 1).join('\n'),
-    });
-  });
-  return cues;
-}
-
-// ---------------------------------------------------------------------------
-// reconcileQuotaLedger — Gate #12（§4 固定公式）
-// ---------------------------------------------------------------------------
-
-/** take 所属 stage（keyframe 任务 → image，其余 → video） */
-function takeStageOf(manifest, take) {
-  if (take && take.stage) return take.stage === 'keyframe' ? 'keyframe' : 'video';
-  const task = ((manifest && manifest.render_tasks) || []).find(t => t && t.task_id === take.task_id);
-  return task && task.stage === 'keyframe' ? 'keyframe' : 'video';
-}
-
-/** 派生计数（事件流） */
-function deriveLedgerCounts(manifest) {
-  let videoTakes = 0;
-  let imageTakes = 0;
-  let rejectedTakes = 0;
-  for (const shot of ((manifest && manifest.shots) || [])) {
-    if (!shot) continue;
-    for (const take of (shot.takes || [])) {
-      if (!take) continue;
-      if (take.status === 'rejected') rejectedTakes += 1;
-      if (takeStageOf(manifest, take) === 'keyframe') imageTakes += 1;
-      else videoTakes += 1;
-    }
-    for (const take of (shot.keyframe_takes || [])) {
-      if (!take) continue;
-      if (take.status === 'rejected') rejectedTakes += 1;
-      imageTakes += 1;
-    }
-  }
-  const reuseRecords = Array.isArray(manifest && manifest.reuse_records)
-    ? manifest.reuse_records.length : 0;
-  return { videoTakes, imageTakes, rejectedTakes, reuseRecords };
-}
-
-/** 读单个 stage 的计数器（缺失 → 0） */
-function stageCounters(ledger, stage) {
-  const raw = (ledger && ledger.stages && ledger.stages[stage]) || {};
-  const out = {};
-  for (const c of LEDGER_COUNTERS) {
-    out[c] = raw[c] === undefined ? 0 : raw[c];
-  }
-  return out;
-}
-
-/**
- * Gate #12：配额账本与事件流对账（纯函数）。
- * @param {object} manifest
- * @returns {{ok:boolean, problems:string[], view:object, deferred:boolean, deferred_reason:string|null}}
- */
-function reconcileQuotaLedger(manifest) {
-  const problems = [];
-  const derived = deriveLedgerCounts(manifest || {});
-  const rawLedger = (manifest && manifest.quota_ledger) || null;
-
-  // 1. 计数器必须为非负整数（写死；缺失按 0 处理）
-  for (const stage of LEDGER_STAGES) {
-    const raw = (rawLedger && rawLedger.stages && rawLedger.stages[stage]) || {};
-    for (const c of LEDGER_COUNTERS) {
-      const v = raw[c];
-      if (v === undefined) continue;
-      if (!Number.isInteger(v) || v < 0) {
-        problems.push(`${stage}.${c} must be a non-negative integer, got ${JSON.stringify(v)}`);
-      }
-    }
-  }
-
-  const counters = {};
-  for (const stage of LEDGER_STAGES) counters[stage] = stageCounters(rawLedger, stage);
-  const view = {
-    derived,
-    stages: counters,
-    video_takes: derived.videoTakes,
-    image_takes: derived.imageTakes,
-    rejected_takes: derived.rejectedTakes,
-    reuse_records: derived.reuseRecords,
-  };
-
-  if (problems.length > 0) {
-    return { ok: false, problems, view, deferred: false, deferred_reason: null };
-  }
-
-  // 2. 恢复/legacy take 无记账：不判 fail，转 deferred（写死）
-  const videoCounted = counters.video.requests + counters.video.cache_hits;
-  if (videoCounted === 0 && derived.videoTakes > 0) {
-    return {
-      ok: true,
-      problems: [],
-      view,
-      deferred: true,
-      deferred_reason: 'ledger not initialized for recovered/legacy takes — reconciliation cannot be performed',
-    };
-  }
-
-  // 3. 逐项对账
-  if (counters.video.successes !== derived.videoTakes) {
-    problems.push(`video.successes ${counters.video.successes} != recorded takes ${derived.videoTakes}`);
-  }
-  if (counters.image.successes !== derived.imageTakes) {
-    problems.push(`image.successes ${counters.image.successes} != recorded takes ${derived.imageTakes}`);
-  }
-  if (counters.video.rejects < derived.rejectedTakes) {
-    problems.push(`video.rejects ${counters.video.rejects} < rejected takes ${derived.rejectedTakes}`);
-  }
-  for (const stage of LEDGER_STAGES) {
-    const s = counters[stage];
-    if (s.successes > s.requests + s.cache_hits) {
-      problems.push(`${stage}.successes ${s.successes} > requests+cache_hits ${s.requests + s.cache_hits}`);
-    }
-    if (s.failed_billed > s.requests) {
-      problems.push(`${stage}.failed_billed ${s.failed_billed} > requests ${s.requests}`);
-    }
-  }
-
-  return { ok: problems.length === 0, problems, view, deferred: false, deferred_reason: null };
-}
-
-// ---------------------------------------------------------------------------
-// 辅助
-// ---------------------------------------------------------------------------
-
-function resolveInterfaceVersion(manifest, explicit) {
-  if (explicit !== undefined && explicit !== null) return explicit;
-  const m = manifest || {};
-  if (m.interface_version !== undefined && m.interface_version !== null) return m.interface_version;
-  if (typeof m.model === 'string' && m.model.length > 0) return m.model;
-  if (m.model && typeof m.model === 'object') {
-    if (m.model.version !== undefined && m.model.version !== null) return m.model.version;
-    if (m.model.id !== undefined && m.model.id !== null) return m.model.id;
-  }
-  return null;
-}
-
-function interfaceVersionOfReport(report) {
-  if (!report || typeof report !== 'object') return null;
-  if (report.interface_version !== undefined && report.interface_version !== null) return report.interface_version;
-  if (report.meta && report.meta.interface_version !== undefined && report.meta.interface_version !== null) {
-    return report.meta.interface_version;
-  }
-  return null;
-}
-
-/** 有效 reuse_record：fingerprint_recurrence 且 bound_input_hash === 当前 shot.input_hash */
-function findReuseRecord(manifest, shot, take) {
-  const records = (manifest && manifest.reuse_records) || [];
-  return records.find(r => r
-    && r.take_id === take.id
-    && r.reason === 'fingerprint_recurrence'
-    && r.bound_input_hash != null
-    && r.bound_input_hash === shot.input_hash) || null;
-}
-
-/**
- * take 是否可用作 final 依赖（单一裁定，所有导出入口共用）:
- *   - block shot / rejected take / human reject → problem
- *   - superseded take 或 superseded task 无有效 reuse_record → problem
- *   - take.input_hash 与 shot.input_hash 失配（双方均非 null）且
- *     无有效 reuse_record 且无 human_review accept（reviewed_input_hash 匹配当前 shot.input_hash）→ problem
- *   - 有效 reuse_record / human accept 可豁免 superseded 与 fingerprint 失配
- * @returns {string[]} problems（空 = 可用）
- */
-function takeDependencyProblem(manifest, shot, take, where) {
-  const w = where || `shot ${shot && shot.id}`;
-  if (shot.status === 'blocked') {
-    return [`${w}: shot ${shot.id} is blocked (circuit breaker) — cannot be depended on by the final release`];
-  }
-  if (take.status === 'rejected' || (take.human_review && take.human_review.conclusion === 'reject')) {
-    return [`${w}: take ${take.id} is rejected — cannot be depended on by the final release`];
-  }
-  const task = ((manifest && manifest.render_tasks) || []).find(t => t && t.task_id === take.task_id);
-  const reuse = findReuseRecord(manifest, shot, take);
-  const humanAccept = !!(take.human_review
-    && take.human_review.conclusion === 'accept'
-    && take.human_review.reviewed_input_hash === shot.input_hash);
-  if (take.status === 'superseded' || isTaskSuperseded(task)) {
-    if (!reuse) {
-      return [`${w}: take ${take.id} is superseded/stale and has no valid reuse_record (fingerprint_recurrence bound to shot.input_hash ${JSON.stringify(shot.input_hash)}) — superseded/orphan artifacts cannot enter final`];
-    }
-  }
-  // fingerprint 失配:take 由不同输入生成,除非 fingerprint 复现(reuse_record)或人工审核绑定了当前输入
-  if (take.input_hash != null && shot.input_hash != null && take.input_hash !== shot.input_hash
-      && !reuse && !humanAccept) {
-    return [`${w}: take ${take.id} input_hash ${JSON.stringify(take.input_hash)} does not match shot.input_hash ${JSON.stringify(shot.input_hash)} — take was generated from a different input and cannot enter final (no valid reuse_record / human_review accept)`];
-  }
-  return [];
-}
-
-/** 由 timeline 帧位推算最终时长（offline 阶段用；probe 优先） */
-function timelineDurationSeconds(timeline) {
-  if (!timeline || !Array.isArray(timeline.clips) || timeline.clips.length === 0) return null;
-  const fps = timeline.fps;
-  if (!Number.isFinite(fps) || fps <= 0) return null;
-  const last = timeline.clips[timeline.clips.length - 1];
-  if (!last || !Number.isInteger(last.output_end)) return null;
-  return last.output_end / fps;
-}
-
-/** 默认字幕产物发现（manifest.artifacts.srt → <episode>/episode.srt） */
-function resolveDefaultArtifacts(absEpDir, manifest) {
-  const artifacts = {};
-  const declared = (manifest && manifest.artifacts) || {};
-  if (declared.srt) {
-    artifacts.srt = absTakePath(declared.srt) || declared.srt;
-  } else if (absEpDir) {
-    const candidate = path.join(absEpDir, 'episode.srt');
-    if (fs.existsSync(candidate)) artifacts.srt = candidate;
-  }
-  return artifacts;
-}
+const {
+  GATE_ITEMS, DEFAULT_INTENT, SRT_BOUNDS_TOLERANCE,
+  isV1Schema, mk, parseSrtCues, reconcileQuotaLedger,
+  resolveInterfaceVersion, interfaceVersionOfReport, findReuseRecord,
+  takeDependencyProblem, timelineDurationSeconds, resolveDefaultArtifacts,
+  formatGateReport,
+} = require('./gate-helpers');
 
 // ---------------------------------------------------------------------------
 // evaluateReleaseGate — §5 全量矩阵
@@ -366,7 +68,6 @@ function evaluateReleaseGate(input = {}) {
   const evidence = input.evidence || opts.evidence || {};
   const interfaceVersionExplicit = input.interfaceVersion !== undefined ? input.interfaceVersion : opts.interfaceVersion;
 
-  // 媒体结果：注入优先（复用）；否则 finalPath 存在时只跑一次 verifyFinalMedia。
   let mediaResult = input.mediaResult || opts.mediaResult || null;
   let mediaError = null;
   let probe = mediaResult ? (mediaResult.probe || null) : null;
@@ -499,7 +200,7 @@ function evaluateReleaseGate(input = {}) {
     add(mk('4a', 'fail', { reasons: [`internal error evaluating take dependency: ${e.message}`] }));
   }
 
-  // ---- #4b：bound approval records（复用 validateApprovals，无 cut_join → pass） ----
+  // ---- #4b：bound approval records ----
   try {
     if (isV1) {
       add(nv1('4b'));
@@ -511,7 +212,7 @@ function evaluateReleaseGate(input = {}) {
     add(mk('4b', 'fail', { reasons: [`internal error evaluating approvals: ${e.message}`] }));
   }
 
-  // ---- #5：clip → selected take（reuse_records 可恢复） ----
+  // ---- #5：clip → selected take ----
   try {
     const problems = [];
     if (isV1) {
@@ -543,7 +244,7 @@ function evaluateReleaseGate(input = {}) {
     add(mk('5', 'fail', { reasons: [`internal error evaluating clip resolution: ${e.message}`] }));
   }
 
-  // ---- #6/#7 prelude：真实对白事实（声明 dialogue=false 不得隐藏） ----
+  // ---- #6/#7 prelude：真实对白事实 ----
   const dialogueHits = [];
   for (const shot of (manifest.shots || [])) {
     if (shot && typeof shot.dialogue_text === 'string' && shot.dialogue_text.trim().length > 0) {
@@ -563,7 +264,7 @@ function evaluateReleaseGate(input = {}) {
   const hasRealDialogue = dialogueHits.length > 0;
   const dialogueHidden = intent.dialogue === false && hasRealDialogue;
 
-  // ---- #6：dialogue overflow / spill（§3.4；M5-OVF 实判） ----
+  // ---- #6：dialogue overflow / spill ----
   try {
     if (isV1) {
       add(nv1('6'));
@@ -579,7 +280,6 @@ function evaluateReleaseGate(input = {}) {
       }));
     } else {
       const problems = collectUnresolvedOverflow(timeline, { intent });
-      // §5 矩阵第 6 行：未声明 dialogue 但 manifest 实际存在对白 → 失败
       if (intent.dialogue === false) {
         for (const shot of (manifest.shots || [])) {
           if (shot && typeof shot.dialogue_text === 'string' && shot.dialogue_text.trim().length > 0) {
@@ -674,7 +374,7 @@ function evaluateReleaseGate(input = {}) {
     add(mk('9', 'fail', { reasons: [`internal error evaluating media verification: ${e.message}`] }));
   }
 
-  // ---- #10：loudness（M5-AUD 实判） ----
+  // ---- #10：loudness ----
   try {
     if (isV1) {
       add(nv1('10'));
@@ -722,7 +422,6 @@ function evaluateReleaseGate(input = {}) {
     if (isV1) {
       add(nv1('11'));
     } else if (artifacts.cover) {
-      // M5-SUB：显式传入已生成的封面产物 → 只校验文件存在（不传则保持 resolveCover 现值）
       const coverArtifact = absTakePath(artifacts.cover) || artifacts.cover;
       if (fs.existsSync(coverArtifact)) {
         add(mk('11', 'pass', { notes: [`cover artifact: ${coverArtifact}`] }));
@@ -782,7 +481,6 @@ function evaluateReleaseGate(input = {}) {
     add(mk('13', 'fail', { reasons: [`internal error evaluating junction approvals: ${e.message}`] }));
   }
 
-  // 稳定输出顺序：按 GATE_ITEMS 的 id 顺序（1,2,3,4a,4b,5..14）
   const byId = new Map(items.map(it => [it.id, it]));
   const ordered = GATE_ITEMS.map(def => byId.get(def.id)).filter(Boolean);
 
@@ -802,47 +500,9 @@ function evaluateReleaseGate(input = {}) {
 }
 
 // ---------------------------------------------------------------------------
-// formatGateReport
+// stitch-episode 复用入口
 // ---------------------------------------------------------------------------
 
-const STATUS_LABEL = {
-  pass: 'PASS',
-  fail: 'FAIL',
-  not_applicable: 'N/A',
-  deferred: 'DEFER',
-  external: 'EXT',
-};
-
-function formatGateReport(result) {
-  const lines = [];
-  const items = (result && result.items) || [];
-  for (const it of items) {
-    const label = STATUS_LABEL[it.status] || String(it.status).toUpperCase();
-    const detail = (it.reasons && it.reasons.length) ? it.reasons.join('; ')
-      : ((it.notes && it.notes.length) ? it.notes.join('; ') : '');
-    lines.push(`[${label}] #${it.id} ${it.title}${detail ? ` (${detail})` : ''}`);
-  }
-  const failures = (result && result.failures) || [];
-  const deferred = (result && result.deferred) || [];
-  lines.push(`Release Gate: ${result && result.ok ? 'OK' : 'NOT OK'}`);
-  const parts = [];
-  if (failures.length) parts.push(`failures: ${failures.map(id => `#${id}`).join(', ')}`);
-  if (deferred.length) parts.push(`deferred: ${deferred.map(id => `#${id}`).join(', ')}`);
-  lines.push(`Releasable: ${result && result.releasable ? 'YES' : 'NO'}${parts.length ? ` (${parts.join('; ')})` : ''}`);
-  return lines.join('\n');
-}
-
-// ---------------------------------------------------------------------------
-// stitch-episode 复用入口（纯函数）
-// ---------------------------------------------------------------------------
-
-/**
- * 收集 Release Gate 报告（供 stitch-episode 与单测复用）。
- * @param {string} absEpDir
- * @param {object} manifest
- * @param {object} [opts] timeline / finalPath / artifacts / e1Report / e1ReportPath /
- *   interfaceVersion / evidence / mediaResult / finalDuration / phase / probeMedia / verifyDecode
- */
 function collectGateReport(absEpDir, manifest, opts = {}) {
   let timeline = opts.timeline;
   if (timeline === undefined) {
@@ -868,19 +528,6 @@ function collectGateReport(absEpDir, manifest, opts = {}) {
     finalDuration: opts.finalDuration,
     opts: Object.assign({}, opts, { phase }),
   });
-}
-
-/**
- * 桥接期退出码判定（纯函数，便于单测）：
- *   fail → 4；deferred 且 strict → 4；否则 0。
- * @returns {{exitCode:number, reason:'ok'|'fail'|'deferred'}}
- */
-function gateExitCode(result, { strict = false } = {}) {
-  if (result && result.failures && result.failures.length > 0) return { exitCode: 4, reason: 'fail' };
-  if (result && result.deferred && result.deferred.length > 0) {
-    return { exitCode: strict ? 4 : 0, reason: 'deferred' };
-  }
-  return { exitCode: 0, reason: 'ok' };
 }
 
 // ---------------------------------------------------------------------------
@@ -971,22 +618,10 @@ function main(argv) {
 }
 
 module.exports = {
-  TOOL_NAME,
-  TOOL_VERSION,
-  GATE_ITEMS,
-  DEFAULT_INTENT,
-  SRT_BOUNDS_TOLERANCE,
-  parseSrtCues,
-  reconcileQuotaLedger,
+  ...require('./gate-helpers'),
   collectUnresolvedOverflow,
   evaluateReleaseGate,
-  takeDependencyProblem,
-  takeUsabilityProblems: takeDependencyProblem,
-  formatGateReport,
   collectGateReport,
-  gateExitCode,
-  resolveDefaultArtifacts,
-  timelineDurationSeconds,
   main,
 };
 

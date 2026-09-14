@@ -546,14 +546,14 @@ function main() {
   }
   if (!datasetPath) {
     console.error(`Usage: node tools/${TOOL_NAME} <dataset.json> [--json <out.json>] [--seed <n>] [--iterations <n>]`);
-    process.exit(1);
+    return 1;
   }
   let dataset;
   try {
     dataset = JSON.parse(fs.readFileSync(datasetPath, 'utf8'));
   } catch (e) {
     console.error(`ERROR: cannot read dataset ${datasetPath}: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
   try {
     const report = buildReport(dataset, {
@@ -567,14 +567,14 @@ function main() {
       atomicWriteJson(jsonPath, report);
       console.log(`JSON report written: ${jsonPath}`);
     }
-    process.exit(0);
+    return 0;
   } catch (e) {
     if (e instanceof E1RefusalError) {
       console.error(`REFUSED: ${e.message}`);
-      process.exit(2);
+      return 2;
     }
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
 }
 
@@ -608,5 +608,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }

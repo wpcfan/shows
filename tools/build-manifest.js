@@ -357,19 +357,30 @@ function verifyManifestFreshness(absEpDir) {
   return { fresh, stale_shots: staleShots, structure_issues: structureIssues };
 }
 
+function _exitError(code, message) {
+  const err = new Error(message);
+  err.exitCode = code;
+  return err;
+}
+
 function main() {
   const [episodeDir] = process.argv.slice(2);
   if (!episodeDir) {
     console.error('Usage: node tools/build-manifest.js <episode-dir>');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(episodeDir) ? episodeDir : path.resolve(episodeDir);
-  withLock(absEpDir, () => buildEpisode(absEpDir));
+  try {
+    withLock(absEpDir, () => buildEpisode(absEpDir));
+  } catch (err) {
+    console.error(err.message);
+    return err.exitCode || 1;
+  }
 }
 
 function buildEpisode(absEpDir) {
   const script = loadScript(absEpDir);
-  if (!script) { console.error(`script.yaml not found in ${absEpDir}`); process.exit(2); }
+  if (!script) { throw _exitError(2, `script.yaml not found in ${absEpDir}`); }
 
   const manifestPath = path.join(absEpDir, 'manifest.json');
   const legacyManifest = readJsonFileOrNull(manifestPath, { label: 'manifest.json' });
@@ -407,10 +418,10 @@ function buildEpisode(absEpDir) {
   }
   const cfValidation = validateContinueFrom(scriptShotRefs);
   if (!cfValidation.ok) {
-    console.error('ERROR: continue_from validation failed (§3.3):');
-    for (const err of cfValidation.errors) console.error(`  ${err}`);
-    console.error('  continue_from is reference-only (weak commitment): the upstream shot must exist, precede this shot in script order, form no cycle, and a chain may be at most 3 hops deep.');
-    process.exit(4);
+    const lines = ['ERROR: continue_from validation failed (§3.3):'];
+    for (const err of cfValidation.errors) lines.push(`  ${err}`);
+    lines.push('  continue_from is reference-only (weak commitment): the upstream shot must exist, precede this shot in script order, form no cycle, and a chain may be at most 3 hops deep.');
+    throw _exitError(4, lines.join('\n'));
   }
 
   const editPath = path.join(absEpDir, 'edit.yaml');
@@ -420,10 +431,10 @@ function buildEpisode(absEpDir) {
   const dialogueDeclaration = checkDialogueDeclaration(intent, { hasDialogue: detectDialogue(script) });
   const intentErrors = [...intentValidation.errors, ...dialogueDeclaration.errors];
   if (intentErrors.length) {
-    console.error('ERROR: intent validation failed (§4):');
-    for (const err of intentErrors) console.error(`  ${err}`);
-    console.error('  fix the intent declaration in script.yaml (script.intent) or edit.yaml (edit.intent / edit.timeline.intent) — no manifest was written.');
-    process.exit(4);
+    const lines = ['ERROR: intent validation failed (§4):'];
+    for (const err of intentErrors) lines.push(`  ${err}`);
+    lines.push('  fix the intent declaration in script.yaml (script.intent) or edit.yaml (edit.intent / edit.timeline.intent) — no manifest was written.');
+    throw _exitError(4, lines.join('\n'));
   }
   const resolvedIntent = intentValidation.normalized;
   const resolvedIntentFlags = intentFlags(resolvedIntent);
@@ -432,12 +443,12 @@ function buildEpisode(absEpDir) {
 
   const ratioViolations = findRatioViolations(script, episodeRatio);
   if (ratioViolations.length) {
-    console.error(`ERROR: shot-level ratio override is not allowed (episode ratio is ${episodeRatio}):`);
+    const lines = [`ERROR: shot-level ratio override is not allowed (episode ratio is ${episodeRatio}):`];
     for (const v of ratioViolations) {
-      console.error(`  ${v.shot_id}: ratio '${v.ratio}' != episode ratio '${episodeRatio}'`);
+      lines.push(`  ${v.shot_id}: ratio '${v.ratio}' != episode ratio '${episodeRatio}'`);
     }
-    console.error(`  ratio is an episode-level setting (§3.7). Fix the shots, or set 'allow_mixed_ratio: true' in script.yaml to explicitly opt in to mixed-ratio output.`);
-    process.exit(3);
+    lines.push(`  ratio is an episode-level setting (§3.7). Fix the shots, or set 'allow_mixed_ratio: true' in script.yaml to explicitly opt in to mixed-ratio output.`);
+    throw _exitError(3, lines.join('\n'));
   }
 
   const newShots = [];
@@ -498,8 +509,7 @@ function buildEpisode(absEpDir) {
           ? DEFAULT_CONTINUE_FROM_OFFSET_SEC
           : shot.continue_from_offset;
         if (typeof rawOffset !== 'number' || !Number.isFinite(rawOffset)) {
-          console.error(`ERROR: ${shot.id}.continue_from_offset must be a finite number, got ${JSON.stringify(rawOffset)}`);
-          process.exit(5);
+          throw _exitError(5, `ERROR: ${shot.id}.continue_from_offset must be a finite number, got ${JSON.stringify(rawOffset)}`);
         }
         const conv = secondsToFrames(rawOffset, episodeFps);
         cfFields.continue_from = shot.continue_from;
@@ -593,10 +603,10 @@ function buildEpisode(absEpDir) {
   }
 
   if (ttsErrors.length) {
-    console.error('ERROR: tts configuration validation failed (§3.4/§3.8):');
-    for (const err of ttsErrors) console.error(`  ${err}`);
-    console.error('  no manifest was written; fix the dialogue/voice/provider configuration and rebuild.');
-    process.exit(4);
+    const lines = ['ERROR: tts configuration validation failed (§3.4/§3.8):'];
+    for (const err of ttsErrors) lines.push(`  ${err}`);
+    lines.push('  no manifest was written; fix the dialogue/voice/provider configuration and rebuild.');
+    throw _exitError(4, lines.join('\n'));
   }
 
   const manifest = {
@@ -657,5 +667,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  process.exit(main() || 0);
 }

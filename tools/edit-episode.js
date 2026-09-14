@@ -166,18 +166,18 @@ function main() {
 
   if (!episodeDir) {
     console.error('Usage: node tools/edit-episode.js <episode-dir> [--out <path>] [--spec <delivery-name>]');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(episodeDir) ? episodeDir : path.resolve(episodeDir);
 
   try { run('ffmpeg', ['-version']); }
-  catch { console.error('ffmpeg not found in PATH'); process.exit(2); }
+  catch { console.error('ffmpeg not found in PATH'); return 2; }
 
   // 读取 edit.yaml
   const editPath = path.join(absEpDir, 'edit.yaml');
   let edit;
   try { edit = yaml.load(fs.readFileSync(editPath, 'utf8')); }
-  catch { console.error(`edit.yaml not found in ${absEpDir}`); process.exit(2); }
+  catch { console.error(`edit.yaml not found in ${absEpDir}`); return 2; }
 
   // 读取 manifest
   const manifestPath = path.join(absEpDir, 'manifest.json');
@@ -188,7 +188,7 @@ function main() {
   if (blockedErrors.length) {
     console.error(`ERROR: ${blockedErrors.length} blocked shot(s) cannot be included in the final edit:`);
     for (const e of blockedErrors) console.error(`  ${e}`);
-    process.exit(4);
+    return 4;
   }
   const shotsById = new Map();
   for (const s of (manifest.shots || [])) shotsById.set(s.id, s);
@@ -196,7 +196,7 @@ function main() {
   const timeline = edit.timeline || [];
   if (timeline.length === 0) {
     console.error('edit.yaml has empty timeline');
-    process.exit(3);
+    return 3;
   }
 
   // === 1. manifest 新鲜度检查 ===
@@ -211,7 +211,7 @@ function main() {
       for (const si of structure_issues) console.error(`  ${si}`);
     }
     console.error('  run `node tools/build-manifest.js` to rebuild before final edit');
-    process.exit(4);
+    return 4;
   }
   console.log('  manifest is fresh');
 
@@ -224,7 +224,7 @@ function main() {
     console.error(`ERROR: ${approvalCheck.problems.length} bound approval problem(s) (PRD §3.3; Release Gate #4b/#13):`);
     for (const p of approvalCheck.problems) console.error(`  ${p}`);
     console.error('  re-confirm the junction with: node tools/mark-approval.js <episode-dir> --kind junction_review ...');
-    process.exit(4);
+    return 4;
   }
 
   // M5-EDIT/D4：v2（schema≥2 且有 timeline.json）委托帧口径 renderFinal；否则走既有秒制路径。
@@ -243,7 +243,7 @@ function main() {
       } else {
         console.error('ERROR: Release Gate failed before rendering (PRD §5).');
       }
-      process.exit(4);
+      return 4;
     }
     if (offlineGate.deferred.length) {
       console.warn(`WARN: Release Gate: NOT RELEASABLE — ${offlineGate.deferred.length} deferred item(s): ${offlineGate.deferred.map(id => `#${id}`).join(', ')}`);
@@ -258,7 +258,7 @@ function main() {
       result = renderFinal({ absEpDir, manifest, timeline: clipsTimeline, outPath });
     } catch (e) {
       console.error(`ERROR: v2 timeline render failed: ${e.message}`);
-      process.exit(4);
+      return 4;
     }
     console.log(`\nEDITED: ${result.outPath}`);
     console.log(`  clips: ${result.clips}`);
@@ -267,14 +267,14 @@ function main() {
     console.log(`  subtitles: ${result.subtitles || 'none'}`);
     console.log(`  cover: ${result.cover || '(skipped)'}`);
     for (const w of result.warnings) console.warn(`  WARN: ${w}`);
-    return;
+    return 0;
   }
 
   // === 2. 音频配置检查(未实现 → 拒绝) ===
   if (edit.audio && edit.audio.length > 0) {
     console.error('ERROR: audio pipeline not yet implemented — edit.yaml has audio tracks configured');
     console.error('  remove audio section from edit.yaml or wait for audio support');
-    process.exit(4);
+    return 4;
   }
 
   // === 3. 必需镜头覆盖检查 ===
@@ -291,7 +291,7 @@ function main() {
     console.error(`ERROR: ${missing.length} shot(s) not in timeline and not in skip_shots:`);
     console.error(`  ${missing.join(', ')}`);
     console.error('  add them to timeline, or list in skip_shots with a reason');
-    process.exit(4);
+    return 4;
   }
 
   // === 4. 逐个校验 timeline 条目 ===
@@ -300,12 +300,12 @@ function main() {
     const shot = shotsById.get(entry.shot_id);
     if (!shot) {
       console.error(`ERROR: ${entry.shot_id} not found in manifest`);
-      process.exit(5);
+      return 5;
     }
     const take = getTakeByTimelineEntry(shot, entry); // 必须有 take_id
     if (!take.path || !fs.existsSync(take.path)) {
       console.error(`ERROR: ${entry.shot_id}/${take.id} file missing: ${take.path || '(null)'}`);
-      process.exit(5);
+      return 5;
     }
     validateTake(shot, take); // take 状态 + input_hash 校验
     console.log(`  OK: ${entry.shot_id}/${take.id}`);
@@ -336,18 +336,18 @@ function main() {
       validateTimePoint(rawOut, `${entry.shot_id}.out_point`);
     } catch (e) {
       console.error(`ERROR: ${e.message}`);
-      process.exit(6);
+      return 6;
     }
     const inPt = rawIn;
     const outPt = rawOut;
     if (outPt > dur + 0.1) {
       console.error(`ERROR: ${entry.shot_id}/${take.id} out_point ${outPt}s exceeds take duration ${dur.toFixed(2)}s`);
-      process.exit(6);
+      return 6;
     }
     const clipDur = outPt - inPt;
     if (clipDur <= 0) {
       console.error(`ERROR: ${entry.shot_id}/${take.id} in_point >= out_point (${inPt} >= ${outPt})`);
-      process.exit(6);
+      return 6;
     }
 
     console.log(`  ${entry.shot_id}/${take.id}: ${inPt}s–${outPt}s (${clipDur.toFixed(2)}s)`);
@@ -363,7 +363,7 @@ function main() {
 
   if (clipFiles.length === 0) {
     console.error('no clips produced');
-    process.exit(7);
+    return 7;
   }
 
   // concat
@@ -401,10 +401,11 @@ function main() {
   }
 
   fs.rmSync(tmpDir, { recursive: true, force: true });
+  return 0;
 }
 
 module.exports = { validateTake, getTakeByTimelineEntry, resolutionToSize, validateTimePoint, escapeConcatPath, collectBlockedShotErrors, collectEditApprovalProblems };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }

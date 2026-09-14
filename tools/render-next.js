@@ -757,7 +757,7 @@ function main() {
   const videoFlag = args.includes('--video');
   if (!episodeDir) {
     console.error('Usage: node tools/render-next.js <episode-dir> [--all] [--video]');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(episodeDir) ? episodeDir : path.resolve(episodeDir);
 
@@ -767,10 +767,10 @@ function main() {
     try { manifest = readJsonFile(path.join(absEpDir, 'manifest.json'), { label: 'manifest.json' }); }
     catch (e) {
       console.error(e.code === 'CORRUPT_JSON' ? `ERROR: ${e.message}` : `manifest.json not found in ${absEpDir} (run build-manifest.js first)`);
-      process.exit(2);
+      return 2;
     }
     const todo = manifest.shots.filter(s => s.status === 'pending' || s.status === 'stale');
-    if (todo.length === 0) { console.log('no pending or stale shots — all done'); return; }
+    if (todo.length === 0) { console.log('no pending or stale shots — all done'); return 0; }
     const waiting = collectRetryWaits(manifest);
     console.log(`Pending/stale shots (${todo.length}):`);
     for (const s of todo) {
@@ -781,7 +781,7 @@ function main() {
         : (manifest.require_keyframe === true ? 'keyframe:pending' : 'keyframe:n/a');
       console.log(`  ${s.id}  [${s.status}] [stage=${stage}] [${kfStatus}] [${s.duration}s ${s.ratio} ${s.resolution}]${w ? ` (retry_wait until ${w.retry_after})` : ''}  ${s.description_cn.slice(0, 60)}`);
     }
-    return;
+    return 0;
   }
 
   try {
@@ -794,17 +794,17 @@ function main() {
       if (waiting.length) console.log(`all pending shots are in retry backoff: ${waiting.map(w => `${w.shot_id} until ${w.retry_after}`).join(', ')}`);
       else if (videoFlag) console.log('no video-eligible shots — keyframe selection may be pending (run without --video for keyframes)');
       else console.log('no pending or stale shots — all done');
-      return;
+      return 0;
     }
     console.log(JSON.stringify(result.out, null, 2));
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
 }
 
 module.exports = { createRenderTask, fileContentHash, computeNextTakeId, computeNextKeyframeTakeId, computeNextTtsTakeId, resolveInputPath, frozenAssetsIntact, isTaskRetryWaiting, collectRetryWaits, isDispatchableTask, supersedeActiveTasksForShot, genAttemptId, pushAttempt, targetStage, shotHasSelectedKeyframe, selectedTtsTake, findUsableTtsTake, shotStageHash, resolveContinueFromOffsetFrames, resolveContinueFromUpstream, continueFromBindingIntact };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }

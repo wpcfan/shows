@@ -340,7 +340,7 @@ function main() {
   const opts = parseArgs(process.argv.slice(2));
   if (!opts.episodeDir || !opts.shotId || !opts.action) {
     console.error('Usage: node tools/mark-keyframe.js <episode-dir> <shot-id> --take --task <task-id> --path <png> [--attempt-id <id>] [--request-id <id>] [--notes "..."] | --select --take-id <kf-id> | --reject --take-id <kf-id> | --review --take-id <kf-id> --conclusion accept|reject | --failed --task <task-id> --error "<msg>" [--transient|--hard|--terminal] | --pending');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(opts.episodeDir) ? opts.episodeDir : path.resolve(opts.episodeDir);
   const catalogPath = path.join(ROOT, 'catalog.json');
@@ -351,7 +351,7 @@ function main() {
     });
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
   console.log(`marked ${opts.shotId} (keyframe action: ${opts.action})`);
 }
@@ -359,5 +359,5 @@ function main() {
 module.exports = { updateKeyframeManifest, appendKeyframeCatalog, nextKeyframeTakeId, reservedKeyframeIds, shotStageHash };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }

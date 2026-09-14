@@ -130,13 +130,13 @@ function main() {
   const customOut = outIdx >= 0 ? args[outIdx + 1] : null;
   if (!episodeDir) {
     console.error('Usage: node tools/stitch-episode.js <episode-dir> [--preview|--final] [--out <path>] [--gate-strict]');
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.isAbsolute(episodeDir) ? episodeDir : path.resolve(episodeDir);
 
   // 检查 ffmpeg
   try { run('ffmpeg', ['-version']); }
-  catch { console.error('ffmpeg not found in PATH'); process.exit(2); }
+  catch { console.error('ffmpeg not found in PATH'); return 2; }
 
   const manifestPath = path.join(absEpDir, 'manifest.json');
   const manifest = readJsonFile(manifestPath, { label: 'manifest.json' });
@@ -158,7 +158,7 @@ function main() {
     const problems = collectFinalShotProblems(manifest);
     if (problems.length) {
       console.error(`ERROR: --final requires all shots done, but found:\n  ${problems.join('\n  ')}`);
-      process.exit(3);
+      return 3;
     }
     // manifest 新鲜度检查(阻塞)
     const { verifyManifestFreshness } = require('./build-manifest');
@@ -170,14 +170,14 @@ function main() {
         for (const si of structure_issues) console.error(`  ${si}`);
       }
       console.error('  run `node tools/build-manifest.js` to rebuild before final stitch');
-      process.exit(3);
+      return 3;
     }
     // 复用 edit-episode 的 validateTake():与正式导出得到同一结论
     const validationErrors = collectFinalValidationErrors(manifest);
     if (validationErrors.length) {
       console.error(`ERROR: --final but ${validationErrors.length} take(s) failed validation (same rules as edit-episode):`);
       for (const e of validationErrors) console.error(`  ${e}`);
-      process.exit(4);
+      return 4;
     }
     // §3.3/§5 Gate #4b/#13:bound approval record 统一检查(所有导出入口)
     const approvalCheck = checkApprovalsForEpisode(absEpDir, manifest);
@@ -186,7 +186,7 @@ function main() {
     } else if (approvalCheck.problems.length) {
       console.error(`ERROR: --final but ${approvalCheck.problems.length} bound approval problem(s) (PRD §3.3; Release Gate #4b/#13):`);
       for (const p of approvalCheck.problems) console.error(`  ${p}`);
-      process.exit(4);
+      return 4;
     }
 
     // §5 M5c:拼接前先跑可离线条目(4a/4b/5/6/7/10/11/12/13/3);fail → 阻断,fail 前不跑 ffmpeg。
@@ -199,7 +199,7 @@ function main() {
       } else {
         console.error('ERROR: Release Gate failed before stitching (PRD §5).');
       }
-      process.exit(4);
+      return 4;
     }
     if (offlineGate.deferred.length) {
       console.warn(`WARN: Release Gate: NOT RELEASABLE — ${offlineGate.deferred.length} deferred item(s): ${offlineGate.deferred.map(id => `#${id}`).join(', ')}`);
@@ -218,7 +218,7 @@ function main() {
         result = renderFinal({ absEpDir, manifest, timeline, outPath });
       } catch (e) {
         console.error(`ERROR: v2 timeline render failed: ${e.message}`);
-        process.exit(4);
+        return 4;
       }
 
       console.log(`\nRENDERED: ${result.outPath}`);
@@ -239,7 +239,7 @@ function main() {
         } else {
           console.error('ERROR: Release Gate failed after stitching (PRD §5).');
         }
-        process.exit(4);
+        return 4;
       }
       if (gateResult.deferred.length) {
         console.warn(`WARN: Release Gate: NOT RELEASABLE — ${gateResult.deferred.length} deferred item(s): ${gateResult.deferred.map(id => `#${id}`).join(', ')}`);
@@ -277,7 +277,7 @@ function main() {
 
   if (doneShots.length === 0) {
     console.error('no done shots to stitch');
-    process.exit(3);
+    return 3;
   }
 
   // §6:--final 只读 schema_version,v1 集按 v1 语义出片并提示(不自动升级;--preview 不提示)
@@ -314,7 +314,7 @@ function main() {
 
   if (normalizedFiles.length === 0) {
     console.error('no normalized files produced');
-    process.exit(4);
+    return 4;
   }
 
   // 2. concat demuxer
@@ -352,7 +352,7 @@ function main() {
         console.error('ERROR: Release Gate failed after stitching (PRD §5).');
       }
       fs.rmSync(tmpDir, { recursive: true, force: true });
-      process.exit(4);
+      return 4;
     }
     if (gateResult.deferred.length) {
       console.warn(`WARN: Release Gate: NOT RELEASABLE — ${gateResult.deferred.length} deferred item(s): ${gateResult.deferred.map(id => `#${id}`).join(', ')}`);
@@ -372,5 +372,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  process.exit(main() || 0);
 }

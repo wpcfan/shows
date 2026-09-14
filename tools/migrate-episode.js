@@ -463,11 +463,11 @@ function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.episodeDir) {
     console.error('Usage: node tools/migrate-episode.js <episode-dir> --to 2 [--dry-run] [--catalog <path>]');
-    process.exit(1);
+    return 1;
   }
   if (!Number.isFinite(args.to) || args.to < 1) {
     console.error(`ERROR: --to must be a positive schema version (got ${args.to})`);
-    process.exit(1);
+    return 1;
   }
   const absEpDir = path.resolve(args.episodeDir);
   const catalogPath = args.catalogPath ? path.resolve(args.catalogPath) : path.join(ROOT, 'catalog.json');
@@ -482,7 +482,7 @@ function main() {
     }));
   } catch (e) {
     console.error(`ERROR: ${e.message}`);
-    process.exit(3);
+    return 3;
   }
 
   console.log(`migrate-episode: ${path.basename(path.resolve(args.episodeDir))} schema ${res.from} → ${res.to}${args.dryRun ? ' [dry-run]' : ''}`);
@@ -503,7 +503,7 @@ function main() {
   if (res.errors.length) {
     console.error('errors:');
     for (const e of res.errors) console.error(`  - ${e}`);
-    process.exit(1);
+    return 1;
   }
   if (args.dryRun) console.log('[dry-run] no files written');
 }
@@ -520,5 +520,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  main();
+  process.exit(main());
 }
