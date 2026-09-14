@@ -1,34 +1,36 @@
 'use strict';
+const { test: nodeTest } = require('node:test');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-let passed = 0, failed = 0;
-
-function test(name, fn) {
-  try { fn(); passed++; console.log(`  ✓ ${name}`); }
-  catch (e) { failed++; console.error(`  ✗ ${name}\n    ${e.message}`); }
-}
+function test(name, fn) { nodeTest(name, fn); }
+function testAsync(name, fn) { nodeTest(name, fn); }
 
 function throws(fn, msgSubstr) {
   let threw = false;
-  try { fn(); } catch (e) { threw = true; if (msgSubstr && !e.message.includes(msgSubstr)) throw new Error(`expected error containing "${msgSubstr}", got "${e.message}"`); }
+  try { fn(); } catch (e) {
+    threw = true;
+    if (msgSubstr && !e.message.includes(msgSubstr)) {
+      throw new Error(`expected error containing "${msgSubstr}", got "${e.message}"`);
+    }
+  }
   if (!threw) throw new Error(`expected to throw${msgSubstr ? ` containing "${msgSubstr}"` : ''}, but did not`);
 }
 
-const asyncTests = [];
-
-function testAsync(name, fn) { asyncTests.push({ name, fn }); }
-
 async function throwsAsync(fn, msgSubstr) {
   let threw = false;
-  try { await fn(); } catch (e) { threw = true; if (msgSubstr && !e.message.includes(msgSubstr)) throw new Error(`expected error containing "${msgSubstr}", got "${e.message}"`); }
+  try { await fn(); } catch (e) {
+    threw = true;
+    if (msgSubstr && !e.message.includes(msgSubstr)) {
+      throw new Error(`expected error containing "${msgSubstr}", got "${e.message}"`);
+    }
+  }
   if (!threw) throw new Error(`expected to reject${msgSubstr ? ` containing "${msgSubstr}"` : ''}, but did not`);
 }
 
 function mkTempDir() {
-  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'shows-test-'));
-  return d;
+  return fs.mkdtempSync(path.join(os.tmpdir(), 'shows-test-'));
 }
 
 function writeManifest(dir, manifest) {
@@ -49,18 +51,7 @@ function shotBase(id, opts = {}) {
   }, opts);
 }
 
-async function runAsyncTests() {
-  const tests = asyncTests.splice(0, asyncTests.length);
-  for (const { name, fn } of tests) {
-    try { await fn(); passed++; console.log(`  ✓ ${name}`); }
-    catch (e) { failed++; console.error(`  ✗ ${name}\n    ${e.message}`); }
-  }
-}
-
-function getStats() { return { passed, failed }; }
-
 module.exports = {
   test, throws, testAsync, throwsAsync,
-  mkTempDir, writeManifest, readManifest, shotBase,
-  runAsyncTests, getStats
+  mkTempDir, writeManifest, readManifest, shotBase
 };

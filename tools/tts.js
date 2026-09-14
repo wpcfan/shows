@@ -31,7 +31,8 @@ const {
 const { computeNextTtsTakeId } = require('./render-next');
 const { ensureLedger, recordOutcome, validateCost } = require('./quota-ledger');
 const { withLock } = require('./lock');
-const { synthDoubao, classifyTtsError, speedToSpeechRate } = require('./tts-api-doubao');
+const { getProvider } = require('./tts-providers');
+const { classifyTtsError } = require('./tts-api-doubao');
 const { probeDurationSec: defaultProbeDurationSec } = require('./tail-frame');
 
 /** 本地入参/状态错误:非 provider 失败,不得按 hard/transient 上报 attempt */
@@ -115,14 +116,11 @@ function loadEnvFile(envFilePath) {
   return loaded;
 }
 
-/** 默认 adapter：把任务快照的 provider/params 映射到 synthDoubao（speech_rate 由 speed 换算） */
+/** 默认 adapter：按 provider.name 查注册表派发；缺 name → 用首个已注册 provider */
 function defaultSynth({ text, voiceId, provider, ttsParams }) {
-  return synthDoubao({
-    text,
-    voiceId,
-    resourceId: (provider && provider.resource_id) || undefined,
-    speechRate: speedToSpeechRate(ttsParams && ttsParams.speed)
-  });
+  const name = (provider && provider.name) || 'doubao';
+  const p = getProvider(name);
+  return p.synth({ text, voiceId, provider, ttsParams });
 }
 
 /** 只读列出待做（可调度）的 tts 任务 */

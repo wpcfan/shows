@@ -10,7 +10,7 @@
 ## 常用命令
 
 ```bash
-npm test                                              # 回归（当前基线 458 passed / 0 failed）
+npm test                                              # 回归（node --test；当前基线 458 passed / 0 failed）
 node tools/new-episode.js --draft <slug>              # 新集草稿（episodes/_drafts/<slug>）
 node tools/validate-script.js <dir>                   # 剧本零成本校验（只读、零网络、零 credits）
 node tools/build-manifest.js <dir>                    # 本地编译（零 credits）

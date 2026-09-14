@@ -10,6 +10,11 @@
 
 （无。D4 已于 M5-EDIT/D4 交付，见「已关闭」；v1 秒制路径按 PRD §6 保留。）
 
+## 已关闭（工程基础设施改进）
+
+- **测试框架迁移（custom → `node:test`）→ 已关闭**：`tools/test/helpers.js` 改为 `node:test` 薄包装（`test()`/`testAsync()` 委托 `node:test` 的 `test()`；`throws()`/`throwsAsync()` 保持原签名）；删除 `tools/test/run.js`（自定义 runner 不再需要）；`package.json` 的 test script 改为 `node --test tools/test/*.test.js`（每个测试文件独立子进程运行）。fixture helpers（`mkTempDir`/`writeManifest`/`readManifest`/`shotBase`）不变。458 tests / 0 failed，零测试文件改动。
+- **TTS Provider 抽象 → 已关闭**：新增 `tools/tts-providers.js`（`register(provider)` / `getProvider(name)` / `listProviders()`；doubao 预注册为内置 provider）；`tts.js` 的 `defaultSynth` 改为按 `provider.name` 派发到注册表（`getProvider(name).synth(...)`），不再硬编码 `synthDoubao`；`classifyTtsError` 保留为 provider-agnostic 共享工具。扩展新 TTS provider 只需 `register({name, synth, classifyError})`。458 tests / 0 failed。
+
 ## 已关闭（PRD v2.13 M5-EDIT/D4 帧口径出片 + 确定性）
 
 - **D4（`edit-episode` 消费 `timeline.json` + 帧口径最终出片 + Gate #14 确定性）→ 已交付**：
