@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node tools/test/regression.test.js",
+    "test": "node tools/test/run.js",
     "lint": "eslint ."
   },
   "keywords": [],

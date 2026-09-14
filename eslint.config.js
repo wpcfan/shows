@@ -30,7 +30,6 @@ module.exports = [
       'output/',
       'experiments/',
       'episodes/',
-      'tools/test/regression.test.js', // 9400+ lines, legacy monolith — exclude from lint
     ],
   },
 ];
