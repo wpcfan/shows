@@ -1,0 +1,227 @@
+{
+  "output_dir": "experiments/e1/data",
+  "adapter": "experiments/e1/adapters/mock.js",
+  "delay_ms": 0,
+  "max_retries": 2,
+  "synthetic": true,
+  "groups": [
+    {
+      "id": "A",
+      "params_position": "first_frame"
+    },
+    {
+      "id": "B",
+      "params_position": "reference_image"
+    },
+    {
+      "id": "C",
+      "params_position": null
+    }
+  ],
+  "cases": [
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01-closeup",
+      "layer": "closeup",
+      "prompt": "MOCK rehearsal prompt — closeup of scene-01 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-01-closeup.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01-wide",
+      "layer": "wide",
+      "prompt": "MOCK rehearsal prompt — wide of scene-01 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-01-wide.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01-empty",
+      "layer": "empty",
+      "prompt": "MOCK rehearsal prompt — empty of scene-01 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-01-empty.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01-motion",
+      "layer": "motion",
+      "prompt": "MOCK rehearsal prompt — motion of scene-01 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-01-motion.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-02",
+      "prompt_id": "prompt-02-closeup",
+      "layer": "closeup",
+      "prompt": "MOCK rehearsal prompt — closeup of scene-02 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-02-closeup.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-02",
+      "prompt_id": "prompt-02-wide",
+      "layer": "wide",
+      "prompt": "MOCK rehearsal prompt — wide of scene-02 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-02-wide.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-02",
+      "prompt_id": "prompt-02-empty",
+      "layer": "empty",
+      "prompt": "MOCK rehearsal prompt — empty of scene-02 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-02-empty.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-02",
+      "prompt_id": "prompt-02-motion",
+      "layer": "motion",
+      "prompt": "MOCK rehearsal prompt — motion of scene-02 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-02-motion.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-03",
+      "prompt_id": "prompt-03-closeup",
+      "layer": "closeup",
+      "prompt": "MOCK rehearsal prompt — closeup of scene-03 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-03-closeup.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-03",
+      "prompt_id": "prompt-03-wide",
+      "layer": "wide",
+      "prompt": "MOCK rehearsal prompt — wide of scene-03 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-03-wide.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-03",
+      "prompt_id": "prompt-03-empty",
+      "layer": "empty",
+      "prompt": "MOCK rehearsal prompt — empty of scene-03 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-03-empty.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    },
+    {
+      "scene": "scene-03",
+      "prompt_id": "prompt-03-motion",
+      "layer": "motion",
+      "prompt": "MOCK rehearsal prompt — motion of scene-03 (synthetic; NOT a real generation request)",
+      "image": "assets/scene-03-motion.png",
+      "seeds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "mock"
+    }
+  ]
+}

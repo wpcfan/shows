@@ -1,0 +1,13 @@
+id: alley-dusk
+name_cn: 城市小巷(黄昏)
+name_en: Urban Alley (Dusk)
+description_cn: |
+  窄巷两侧红砖墙，铁丝网围栏横在前方。地面湿漉漉反射天光。
+  垃圾袋堆积，锈蚀消防梯挂墙上。蓝紫黄昏色调，远处天空染橘。
+  阴影浓重，尽头看不清。
+appearance_en: >-
+  Narrow urban alley flanked by red brick walls. Chain-link fence blocking
+  forward path. Wet ground reflecting sky light. Piled garbage bags, rusty
+  fire escape ladders on walls. Blue-purple dusk color grading, distant sky
+  tinted orange. Heavy shadows, far end obscured.
+prompt_inject: true

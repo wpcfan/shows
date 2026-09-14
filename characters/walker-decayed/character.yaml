@@ -1,0 +1,14 @@
+id: walker-decayed
+name_cn: 中期腐败丧尸
+name_en: Decayed Walker
+description_cn: |
+  转化数周后的丧尸。皮肤大面积剥落，露出底下灰黄肌肉与白骨。衣物破烂。
+  动作迟缓拖沓，一只眼眶可能空洞。头发稀疏粘连。
+appearance_en: >-
+  Mid-decomposition walker, weeks after turning. Weathered desiccated figure
+  with dry cracked skin showing patches of rough texture. Clothing tattered
+  and filthy. Movement slow shuffling dragging gait. One eye clouded and
+  sunken. Hair sparse matted with grime.
+role: walker-archetype
+appears_in: [S01E01]
+prompt_inject: true

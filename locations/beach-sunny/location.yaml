@@ -1,0 +1,13 @@
+id: beach-sunny
+name_cn: 阳光沙滩
+name_en: Sunny Beach
+description_cn: |
+  明亮阳光下的宽阔沙滩。湛蓝天空,耀眼太阳,白色细沙。
+  蓝色大海,白色浪花卷向岸边。沙滩上一张空躺椅,一排脚印延伸向海水。
+  暖金色阳光,自然光,电影质感。
+appearance_en: >-
+  Wide beach under bright sunlight. Deep blue sky, dazzling sun, fine white
+  sand. Bright blue ocean with white foamy waves rolling to shore. An empty
+  lounge chair on the sand, a trail of footprints leading toward the water.
+  Warm golden sunlit tones, natural lighting, cinematic film still.
+prompt_inject: true

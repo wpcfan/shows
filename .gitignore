@@ -1,0 +1,29 @@
+node_modules/
+
+# Temporary / lock files
+*.lock
+*.tmp
+**/.tmp-*/
+
+# Generated output
+output/
+
+# Experiment data (large binary assets; keep configs/README/code)
+experiments/*/data/
+experiments/*/evidence/
+experiments/*/assets/*.png
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+.trae/
+
+# Test coverage (if ever added)
+coverage/

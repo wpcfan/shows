@@ -1,0 +1,48 @@
+{
+  "_note": "FROZEN — 正式 E1 预注册（2026-09-14 冻结）。Δ=0.25 与 ssim_abs_min=0.80 来自校准实验（experiments/e1/calibration-2026-09-14.md）；冻结后不得再改。",
+  "meta": {
+    "interface_name": "pippit-tool-cli generate-video",
+    "interface_version": "pippit-tool-cli 1.0.21 + model Seedance_2.0_mini_lite",
+    "params_position": "generate_type=1 (first+last frame, last=first) — direct-CLI verified 2026-09-14; prompt-first declaration in reference mode did NOT lock frame0 (see calibration-2026-09-14.md)",
+    "experiment_date": "2026-09-14",
+    "delta_preregistered": 0.25,
+    "ssim_abs_min": 0.8,
+    "delta_frozen_at": "2026-09-14T12:00:30+0800",
+    "metrics": {
+      "ssim": {
+        "impl": "ffmpeg-ssim",
+        "version": "ffmpeg 8.1",
+        "params": {
+          "window": "8x8",
+          "channels": "rgb24-all",
+          "resize": "512x512-bilinear",
+          "cover_crop": "to_video_aspect"
+        },
+        "preprocessing": {
+          "cover_crop": "to_video_aspect",
+          "resize": "512x512-bilinear",
+          "color_space": "sRGB",
+          "sharpen": false
+        }
+      },
+      "secondary": {
+        "field": "phash_distance",
+        "impl": "e1-metrics dct-phash",
+        "version": "1"
+      }
+    },
+    "bootstrap_iterations": 1000,
+    "duration_value_range": [
+      1,
+      30
+    ],
+    "lipsync": {
+      "supported": true,
+      "source": "小云雀《Seedance 2.5 关键更新速览》wiki W5tHwoZIDi12dbk2z3KcFkuUnsf",
+      "verified_at": "2026-09-14",
+      "note": "手册示例；M1 实测复核待做"
+    },
+    "synthetic": false,
+    "resolution": "720p (direct CLI ignores --resolution 480p; verified 2026-09-14)"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "_note": "CALIBRATION ONLY — 校准阶段临时阈值（Δ=0.1 / ssim_abs_min=0.6），用于测量 A′/B/C 的 SSIM 分布；正式实验前需据校准结果冻结 Δ 与 ssim_abs_min 并重写 delta_frozen_at。",
+  "meta": {
+    "interface_name": "pippit-tool-cli generate-video",
+    "interface_version": "pippit-tool-cli 1.0.21 + model Seedance_2.0_mini_lite",
+    "params_position": "generate_type=1 (first+last frame; E1 A-prime uses last=first)",
+    "experiment_date": "2026-09-14",
+    "delta_preregistered": 0.1,
+    "ssim_abs_min": 0.6,
+    "delta_frozen_at": "2026-09-14T10:55:00+08:00",
+    "metrics": {
+      "ssim": {
+        "impl": "ffmpeg-ssim",
+        "version": "ffmpeg 8.1",
+        "params": {
+          "window": "8x8",
+          "channels": "rgb24-all",
+          "resize": "512x512-bilinear",
+          "cover_crop": "to_video_aspect"
+        },
+        "preprocessing": {
+          "cover_crop": "to_video_aspect",
+          "resize": "512x512-bilinear",
+          "color_space": "sRGB",
+          "sharpen": false
+        }
+      },
+      "secondary": {
+        "field": "phash_distance",
+        "impl": "e1-metrics dct-phash",
+        "version": "1"
+      }
+    },
+    "bootstrap_iterations": 1000,
+    "duration_value_range": [
+      1,
+      30
+    ],
+    "lipsync": {
+      "supported": true,
+      "source": "小云雀《Seedance 2.5 关键更新速览》wiki W5tHwoZIDi12dbk2z3KcFkuUnsf（手册示例：对白场景“准确口型同步”）",
+      "verified_at": "2026-09-14",
+      "note": "依据官方手册示例；M1 实测复核仍待做"
+    },
+    "synthetic": false
+  }
+}

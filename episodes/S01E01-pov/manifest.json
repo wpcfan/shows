@@ -1,0 +1,348 @@
+{
+  "episode": "S01E01",
+  "title": "第一视角 / POV",
+  "version": 3,
+  "generated_at": "2026-09-13T11:12:39.599Z",
+  "defaults": {
+    "ratio": "16:9",
+    "resolution": "720p",
+    "duration": 8
+  },
+  "render_tasks": [],
+  "shots": [
+    {
+      "id": "s01-shot-01",
+      "scene": "s01",
+      "description_cn": "主角躺在沙滩椅上,脚朝向大海,头朝向陆地,脸朝上。\n慢慢睁开眼,看到蓝天和刺眼的太阳(仰视)。眨眼适应光线。海鸥飞过蓝天。\n主角坐起来(手短暂撑椅子后离开画面),视角从天空转向前方的大海。\n沙滩上一排脚印延伸向海水。蓝蓝的海,白色浪花卷来。\n一只小螃蟹飞快爬到主角脚下,把自己飞快埋入沙子。",
+      "prompt_final_en": "Cinematic first-person POV, not a video game. Protagonist lying on a beach lounge chair, feet toward the ocean, head toward land, face looking up. Eyes slowly open, seeing bright blue sky and dazzling sunlight overhead (looking up). Eyes squeeze shut against the glare, then open again. A seagull glides across the blue sky. POV sits up from the lounge chair — hands briefly brace the chair then leave frame — as the camera tilts up from the sky to reveal the ocean ahead. A line of footprints trails across the white sand toward the water. Bright blue ocean with white foamy waves rolling in. A small crab scurries quickly across the sand to the protagonist's feet and buries itself rapidly into the sand. Wide beach under bright sunlight. Deep blue sky, dazzling sun, fine white sand. Bright blue ocean with white foamy waves rolling to shore. An empty lounge chair on the sand, a trail of footprints leading toward the water. Warm golden sunlit tones, natural lighting, cinematic film still. Image references — <image 1>: Sunny Beach setting.",
+      "input_hash": "587d64415bca830f",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/locations/beach-sunny/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-001-xyq25.mp4",
+          "model": "Seedance_2.5",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T07:54:11.565Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-001-xyq25.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s01b-shot-02",
+      "scene": "s01b",
+      "description_cn": "POV 缓缓站起,向前走入满地碎物的医院走廊。翻倒的轮椅、污浊的输液架、裂开的地砖。\n远处传来低沉喉音呻吟,在空荡走廊回响。手伸出去推开一扇病房门。",
+      "prompt_final_en": "tracking shot forward, slow, eerie. First-person POV. Slowly standing up, walking forward down a debris-filled hospital corridor. Overturned wheelchair, dirty IV stands, cracked floor tiles. Distant low guttural moan echoing through empty corridor. Hand reaches out and pushes open a ward door. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. 1990s Soviet-style community hospital, three floors. Wide corridors, flickering fluorescent tubes, most lights dead. Large patches of peeling paint, cracked floor tiles, overturned wheelchairs, dirty IV stands. Dust motes floating in pale light. Shattered glass entrance doors on ground floor. Long shadows, eerie silence. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Abandoned Hospital setting.",
+      "input_hash": "128e5d5603aa358e",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/abandoned-hospital/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-002.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T06:45:00.000Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-002.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s01b-shot-03",
+      "scene": "s01b",
+      "description_cn": "POV 转过走廊拐角,见一名新感染丧尸(穿病号服背对镜头,身体摇晃)。\nPOV 举起铁棍,落下时切镜(暗示击杀,不直接呈现)。",
+      "prompt_final_en": "handheld, slight shake, abrupt cut on impact. First-person POV. Slowly rounding a corner in the dim hospital corridor. A lone figure in a tattered hospital gown stands far down the hallway, back to camera, swaying slightly. POV holds still at a distance, observing quietly. The figure remains motionless. Long silent moment. Scene fades. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. Fresh walker, recently turned human corpse. Greyish-white skin tone but not yet decomposed. Cloudy milky white pupils. Minimal weathering on skin. Clothing largely intact. Stiff but capable of lurching jog. Wearing hospital gown, casual wear, or work clothes depending on scene. 1990s Soviet-style community hospital, three floors. Wide corridors, flickering fluorescent tubes, most lights dead. Large patches of peeling paint, cracked floor tiles, overturned wheelchairs, dirty IV stands. Dust motes floating in pale light. Shattered glass entrance doors on ground floor. Long shadows, eerie silence. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Fresh Walker appearance. <image 3>: Abandoned Hospital setting.",
+      "input_hash": "735fc393eb3259f6",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/characters/walker-fresh/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/abandoned-hospital/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-003.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T06:50:00.000Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-003.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s02-shot-04",
+      "scene": "s02",
+      "description_cn": "POV 推开医院大门走到城市街道。阴天,废弃车辆横七竖八,纸张在风中飘飞。\n手握铁棍处于画面下方,金属上有暗色污渍。",
+      "prompt_final_en": "handheld, slight shake, establishing wide. First-person POV. Pushing open hospital entrance doors, stepping out onto a city street under overcast sky. Abandoned vehicles scattered across lanes, papers blowing in wind. Hand grips a steel crowbar at lower frame, dark stains visible on the metal surface. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. City main road under overcast sky. Abandoned vehicles randomly blocking lanes, some doors left open. Pavement cracked with weeds growing through. Papers and dust drifting in wind. Shop signs tilted broken. Distant buildings with dark empty window sockets. No people. Vast oppressive grey-toned emptiness. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Abandoned City Street (Overcast) setting.",
+      "input_hash": "d22b113c843e7c88",
+      "prev_hash": null,
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/city-street-overcast/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-004.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T06:39:07.804Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-004.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s02-shot-05",
+      "scene": "s02",
+      "description_cn": "多个丧尸转头发现 POV,POV 立即狂奔。手持剧烈晃动,穿梭废弃车辆。\n丧尸手臂从两侧伸向镜头。",
+      "prompt_final_en": "intense handheld shake, fast pace, sprinting. First-person POV. Multiple walkers turn their heads toward camera, noticing. POV breaks into a sprint, intense handheld camera shake, fast pace. Weaving between abandoned vehicles on the street. Walker arms reaching toward camera from both sides as POV passes. Mid-decomposition walker, weeks after turning. Weathered desiccated figure with dry cracked skin showing patches of rough texture. Clothing tattered and filthy. Movement slow shuffling dragging gait. One eye clouded and sunken. Hair sparse matted with grime. Fresh walker, recently turned human corpse. Greyish-white skin tone but not yet decomposed. Cloudy milky white pupils. Minimal weathering on skin. Clothing largely intact. Stiff but capable of lurching jog. Wearing hospital gown, casual wear, or work clothes depending on scene. City main road under overcast sky. Abandoned vehicles randomly blocking lanes, some doors left open. Pavement cracked with weeds growing through. Papers and dust drifting in wind. Shop signs tilted broken. Distant buildings with dark empty window sockets. No people. Vast oppressive grey-toned emptiness. Image references — <image 1>: Decayed Walker appearance. <image 2>: Fresh Walker appearance. <image 3>: Abandoned City Street (Overcast) setting.",
+      "input_hash": "aa5e577a2159496d",
+      "prev_hash": null,
+      "duration": 12,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/walker-decayed/reference.jpg",
+        "/Users/wangpeng/workspace/shows/characters/walker-fresh/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/city-street-overcast/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-005.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T06:50:27.074Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-005.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s03-shot-06",
+      "scene": "s03",
+      "description_cn": "POV 闯入沿街店面摔上玻璃门,丧尸在外捶打,手掌贴在玻璃上。\nPOV 退入阴影角落,胸口剧烈起伏喘气。手扎头巾遮住下半张脸。",
+      "prompt_final_en": "handheld, frantic then settling, low light. First-person POV. Bursting into a looted storefront, pulling the glass door shut. Outside, silhouettes move slowly past the dim glass. POV backs into a dark corner, heavy breathing visible in chest heave. Hand ties a bandana over the lower face. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. Looted small convenience store. Glass door intact but dust-covered. Empty shelving, scattered packaging wrappers and toppled refrigerated display case on floor. Interior dim, only dusk glow entering through doorway. Heavy shadows in corners. Outside through glass: silhouettes of abandoned vehicles. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Storefront (Dusk) setting.",
+      "input_hash": "c25bb41631a72bb6",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/storefront-dusk/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-006.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T06:56:51.816Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-006.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s04-shot-07",
+      "scene": "s04",
+      "description_cn": "POV 在窄巷翻越铁丝网围栏。手抓铁丝,丧尸从下方伸手抓脚。\nPOV 踢开一只丧尸,继续向顶部翻越。",
+      "prompt_final_en": "handheld, looking down then up, tense. First-person POV. Climbing a chain-link fence in a narrow alley at dusk. Hands gripping the wire. Below, distant silhouettes gather slowly at the base of the fence. POV climbs faster, clearing the top of the fence and dropping to the other side. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. Mid-decomposition walker, weeks after turning. Weathered desiccated figure with dry cracked skin showing patches of rough texture. Clothing tattered and filthy. Movement slow shuffling dragging gait. One eye clouded and sunken. Hair sparse matted with grime. Narrow urban alley flanked by red brick walls. Chain-link fence blocking forward path. Wet ground reflecting sky light. Piled garbage bags, rusty fire escape ladders on walls. Blue-purple dusk color grading, distant sky tinted orange. Heavy shadows, far end obscured. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Decayed Walker appearance. <image 3>: Urban Alley (Dusk) setting.",
+      "input_hash": "1f45b7508bf608ba",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/characters/walker-decayed/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/alley-dusk/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-007.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T06:59:51.412Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-007.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s05-shot-08",
+      "scene": "s05",
+      "description_cn": "POV 在地下停车场潜行。灯光闪烁,空气湿冷。前方丧尸背对镜头。\nPOV 从背后接近,双手从后方环住丧尸头部,快速扭动,丧尸倒地。",
+      "prompt_final_en": "handheld, slow stalking then quick motion, low light. First-person POV. Stalking silently through an underground parking garage at night. Flickering dim lights, cold damp air. A lone figure stands ahead in the shadows, back to camera, motionless. POV creeps closer, holding breath. The figure does not move. Long tense moment. Scene fades. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. Mid-decomposition walker, weeks after turning. Weathered desiccated figure with dry cracked skin showing patches of rough texture. Clothing tattered and filthy. Movement slow shuffling dragging gait. One eye clouded and sunken. Hair sparse matted with grime. Underground two-level parking garage. Water stains on concrete walls. Only a few fluorescent lights still working, flickering. Oil stains reflecting on floor. Abandoned vehicles covered in dust. Column shadows deep impenetrable. Exit ramp letting in a sliver of night sky. Cold damp air, hollow echoes. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Decayed Walker appearance. <image 3>: Underground Parking Garage (Night) setting.",
+      "input_hash": "cc73c7f7bb8c4315",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/characters/walker-decayed/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/parking-garage-night/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-008.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T07:03:11.060Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-008.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s06-shot-09",
+      "scene": "s06",
+      "description_cn": "POV 走向废弃便利店,玻璃门完好但落满灰尘。随着 POV 逼近,\n玻璃上的倒影逐渐清晰——一个模糊人形轮廓开始浮现。",
+      "prompt_final_en": "slow push-in, eerie, building tension. First-person POV. Walking toward an abandoned convenience store at dusk. The glass door is intact but dust-covered. As POV approaches slowly, a reflection in the glass gradually clarifies — a vague silhouette starts to form on the dusty surface. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. Looted small convenience store. Glass door intact but dust-covered. Empty shelving, scattered packaging wrappers and toppled refrigerated display case on floor. Interior dim, only dusk glow entering through doorway. Heavy shadows in corners. Outside through glass: silhouettes of abandoned vehicles. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: Storefront (Dusk) setting.",
+      "input_hash": "f57b6a24bbd77bd8",
+      "prev_hash": null,
+      "duration": 8,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/storefront-dusk/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-009.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T07:05:24.779Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-009.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "id": "s06-shot-10",
+      "scene": "s06",
+      "description_cn": "反转:玻璃倒影完全清晰——映出的不是主角,而是一张腐败丧尸脸\n(灰白皮肤、浑浊瞳孔、凹陷颧骨)。主角一直是丧尸。\nPOV 的手抬起来,缓缓触碰玻璃里那张脸。切黑。出字幕卡。",
+      "prompt_final_en": "slow, eerie, lingering then abrupt cut to black. First-person POV. Standing before the convenience store glass door. The reflection clarifies fully — revealing a gaunt weathered face with milky clouded eyes where the protagonist's reflection should be. Grey-white desaturated skin, sunken cheek. The protagonist's scarred hand reaches up and slowly touches the glass, mirroring the reflection's face. Scene fades to darkness. Title card fades in. First-person POV survivor, face never shown. Grimy scar-covered greyish hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark grey hoodie sleeves rolled up. Black tactical glove on right hand with missing index finger. Skin tone slightly greyish but plausibly just dirt-covered. Gaunt weathered face close-up. Grey-white desaturated skin, milky clouded pupils, weathered cracked texture around mouth, left cheek gaunt and sunken, left eye socket deeply shadowed. Eerie stillness. The reflection in the glass door reveals this face — implying the protagonist has been one of them all along. Looted small convenience store. Glass door intact but dust-covered. Empty shelving, scattered packaging wrappers and toppled refrigerated display case on floor. Interior dim, only dusk glow entering through doorway. Heavy shadows in corners. Outside through glass: silhouettes of abandoned vehicles. Image references — <image 1>: The Survivor (POV) appearance. <image 2>: The Survivor (Twist Reveal) appearance. <image 3>: Storefront (Dusk) setting.",
+      "input_hash": "17a7cb69aa5599cd",
+      "prev_hash": null,
+      "duration": 10,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "default",
+      "image_paths": [
+        "/Users/wangpeng/workspace/shows/characters/protagonist-hands/reference.jpg",
+        "/Users/wangpeng/workspace/shows/characters/protagonist-zombie-face/reference.jpg",
+        "/Users/wangpeng/workspace/shows/locations/storefront-dusk/reference.jpg"
+      ],
+      "takes": [
+        {
+          "id": "take-001",
+          "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-010.mp4",
+          "model": "unknown",
+          "input_hash": null,
+          "rendered_at": "2026-09-13T07:08:15.240Z",
+          "status": "selected",
+          "notes": "recovered from catalog (source unknown)"
+        }
+      ],
+      "selected_take": "take-001",
+      "output_path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-010.mp4",
+      "status": "stale",
+      "rendered_at": null,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}

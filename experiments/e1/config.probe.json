@@ -1,0 +1,33 @@
+{
+  "output_dir": "experiments/e1/data/probe",
+  "adapter": "experiments/e1/adapters/pippit.js",
+  "delay_ms": 3000,
+  "max_retries": 1,
+  "synthetic": false,
+  "groups": [
+    {
+      "id": "P2_single",
+      "params_position": "probe",
+      "adapter_params": { "generate_type": 2, "image_mode": "single" }
+    },
+    {
+      "id": "P3_single",
+      "params_position": "probe",
+      "adapter_params": { "generate_type": 3, "image_mode": "single" }
+    }
+  ],
+  "cases": [
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01",
+      "layer": "closeup",
+      "prompt": "Locked static shot. Subtle natural micro-movement only, no camera movement, no subject motion change.",
+      "image": "../../characters/protagonist-hands/reference.jpg",
+      "seeds": [1],
+      "duration": 5,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "Seedance_2.0_mini_lite"
+    }
+  ]
+}

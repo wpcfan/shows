@@ -1,0 +1,1347 @@
+{
+  "meta": {
+    "interface_name": "SYNTHETIC-DEMO-INTERFACE (placeholder — NOT a real interface)",
+    "interface_version": "0.0.0-demo",
+    "params_position": "first_frame",
+    "experiment_date": "1970-01-01",
+    "delta_preregistered": 0.1,
+    "ssim_abs_min": 0.8,
+    "delta_frozen_at": "1970-01-01T00:00:00Z",
+    "metrics": {
+      "ssim": {
+        "impl": "skimage.metrics.structural_similarity",
+        "version": "0.22.0",
+        "params": {
+          "window": 7,
+          "gaussian": true,
+          "K1": 0.01,
+          "K2": 0.03,
+          "data_range": 255,
+          "cover_crop": "to_video_aspect"
+        },
+        "preprocessing": {
+          "resize": "512x512-bilinear",
+          "color_space": "sRGB",
+          "sharpen": false,
+          "cover_crop": "to_video_aspect"
+        }
+      },
+      "secondary": {
+        "field": "phash_distance",
+        "impl": "imagehash.phash",
+        "version": "4.3.1"
+      }
+    },
+    "bootstrap_iterations": 1000,
+    "duration_value_range": [
+      1,
+      30
+    ],
+    "lipsync": {
+      "supported": true,
+      "source": "小云雀《Seedance 2.5 关键更新速览》wiki W5tHwoZIDi12dbk2z3KcFkuUnsf（手册示例：对白场景“准确口型同步”）",
+      "verified_at": "2026-09-14",
+      "note": "依据官方手册示例；M1 实测复核仍待做"
+    },
+    "synthetic": true,
+    "synthetic_notice": "Fabricated demo dataset for tooling tests only. NOT real interface output; do not cite as an E1 result."
+  },
+  "samples": [
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6179,
+      "phash_distance": 19.788
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6099,
+      "phash_distance": 18.991
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6035,
+      "phash_distance": 18.352
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6179,
+      "phash_distance": 19.788
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6099,
+      "phash_distance": 18.991
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6035,
+      "phash_distance": 18.352
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6027,
+      "phash_distance": 18.274
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6154,
+      "phash_distance": 19.535
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6061,
+      "phash_distance": 18.611
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6027,
+      "phash_distance": 18.274
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6154,
+      "phash_distance": 19.535
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6061,
+      "phash_distance": 18.611
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6184,
+      "phash_distance": 19.844
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6024,
+      "phash_distance": 18.24
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6104,
+      "phash_distance": 19.035
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6184,
+      "phash_distance": 19.844
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6024,
+      "phash_distance": 18.24
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6104,
+      "phash_distance": 19.035
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6125,
+      "phash_distance": 19.246
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6128,
+      "phash_distance": 19.275
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6163,
+      "phash_distance": 19.629
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6125,
+      "phash_distance": 19.246
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6128,
+      "phash_distance": 19.275
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6163,
+      "phash_distance": 19.629
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6057,
+      "phash_distance": 18.574
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.616,
+      "phash_distance": 19.602
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6099,
+      "phash_distance": 18.993
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6057,
+      "phash_distance": 18.574
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.616,
+      "phash_distance": 19.602
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6099,
+      "phash_distance": 18.993
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6049,
+      "phash_distance": 18.488
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6188,
+      "phash_distance": 19.875
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6025,
+      "phash_distance": 18.246
+    },
+    {
+      "group": "A",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6049,
+      "phash_distance": 18.488
+    },
+    {
+      "group": "B",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6188,
+      "phash_distance": 19.875
+    },
+    {
+      "group": "C",
+      "layer": "closeup",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6025,
+      "phash_distance": 18.246
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6095,
+      "phash_distance": 18.949
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6117,
+      "phash_distance": 19.172
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6032,
+      "phash_distance": 18.321
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6095,
+      "phash_distance": 18.949
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6117,
+      "phash_distance": 19.172
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6032,
+      "phash_distance": 18.321
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6165,
+      "phash_distance": 19.648
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6119,
+      "phash_distance": 19.189
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6171,
+      "phash_distance": 19.711
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6165,
+      "phash_distance": 19.648
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6119,
+      "phash_distance": 19.189
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6171,
+      "phash_distance": 19.711
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6123,
+      "phash_distance": 19.235
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6004,
+      "phash_distance": 18.039
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6156,
+      "phash_distance": 19.561
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6123,
+      "phash_distance": 19.235
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6004,
+      "phash_distance": 18.039
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6156,
+      "phash_distance": 19.561
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6173,
+      "phash_distance": 19.727
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.62,
+      "phash_distance": 19.999
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6058,
+      "phash_distance": 18.578
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6173,
+      "phash_distance": 19.727
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.62,
+      "phash_distance": 19.999
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6058,
+      "phash_distance": 18.578
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.605,
+      "phash_distance": 18.498
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6039,
+      "phash_distance": 18.394
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6041,
+      "phash_distance": 18.411
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.605,
+      "phash_distance": 18.498
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6039,
+      "phash_distance": 18.394
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6041,
+      "phash_distance": 18.411
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6157,
+      "phash_distance": 19.573
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6066,
+      "phash_distance": 18.661
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6188,
+      "phash_distance": 19.877
+    },
+    {
+      "group": "A",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6157,
+      "phash_distance": 19.573
+    },
+    {
+      "group": "B",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6066,
+      "phash_distance": 18.661
+    },
+    {
+      "group": "C",
+      "layer": "wide",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6188,
+      "phash_distance": 19.877
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6165,
+      "phash_distance": 19.652
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6027,
+      "phash_distance": 18.268
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6008,
+      "phash_distance": 18.084
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6165,
+      "phash_distance": 19.652
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6027,
+      "phash_distance": 18.268
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6008,
+      "phash_distance": 18.084
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6183,
+      "phash_distance": 19.834
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6141,
+      "phash_distance": 19.409
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6049,
+      "phash_distance": 18.486
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6183,
+      "phash_distance": 19.834
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6141,
+      "phash_distance": 19.409
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6049,
+      "phash_distance": 18.486
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6193,
+      "phash_distance": 19.934
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6085,
+      "phash_distance": 18.849
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6173,
+      "phash_distance": 19.73
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6193,
+      "phash_distance": 19.934
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6085,
+      "phash_distance": 18.849
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6173,
+      "phash_distance": 19.73
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6058,
+      "phash_distance": 18.581
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6036,
+      "phash_distance": 18.359
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6048,
+      "phash_distance": 18.478
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6058,
+      "phash_distance": 18.581
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6036,
+      "phash_distance": 18.359
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6048,
+      "phash_distance": 18.478
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6189,
+      "phash_distance": 19.89
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6079,
+      "phash_distance": 18.788
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6179,
+      "phash_distance": 19.785
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6189,
+      "phash_distance": 19.89
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6079,
+      "phash_distance": 18.788
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6179,
+      "phash_distance": 19.785
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.605,
+      "phash_distance": 18.498
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6167,
+      "phash_distance": 19.667
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6093,
+      "phash_distance": 18.934
+    },
+    {
+      "group": "A",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.605,
+      "phash_distance": 18.498
+    },
+    {
+      "group": "B",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6167,
+      "phash_distance": 19.667
+    },
+    {
+      "group": "C",
+      "layer": "empty",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6093,
+      "phash_distance": 18.934
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.611,
+      "phash_distance": 19.102
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6165,
+      "phash_distance": 19.651
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.603,
+      "phash_distance": 18.296
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.611,
+      "phash_distance": 19.102
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6165,
+      "phash_distance": 19.651
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.603,
+      "phash_distance": 18.296
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.614,
+      "phash_distance": 19.399
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6098,
+      "phash_distance": 18.982
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6117,
+      "phash_distance": 19.17
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.614,
+      "phash_distance": 19.399
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6098,
+      "phash_distance": 18.982
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-1",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6117,
+      "phash_distance": 19.17
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6022,
+      "phash_distance": 18.221
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6062,
+      "phash_distance": 18.624
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6092,
+      "phash_distance": 18.916
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6022,
+      "phash_distance": 18.221
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6062,
+      "phash_distance": 18.624
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6092,
+      "phash_distance": 18.916
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6188,
+      "phash_distance": 19.879
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6021,
+      "phash_distance": 18.215
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6181,
+      "phash_distance": 19.812
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6188,
+      "phash_distance": 19.879
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6021,
+      "phash_distance": 18.215
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-2",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6181,
+      "phash_distance": 19.812
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6097,
+      "phash_distance": 18.966
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.605,
+      "phash_distance": 18.495
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1000,
+      "ssim": 0.6185,
+      "phash_distance": 19.847
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6097,
+      "phash_distance": 18.966
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.605,
+      "phash_distance": 18.495
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-1",
+      "seed": 1001,
+      "ssim": 0.6185,
+      "phash_distance": 19.847
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.603,
+      "phash_distance": 18.299
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6158,
+      "phash_distance": 19.577
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1000,
+      "ssim": 0.6031,
+      "phash_distance": 18.312
+    },
+    {
+      "group": "A",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.603,
+      "phash_distance": 18.299
+    },
+    {
+      "group": "B",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6158,
+      "phash_distance": 19.577
+    },
+    {
+      "group": "C",
+      "layer": "motion",
+      "scene": "demo-scene-3",
+      "prompt_id": "demo-prompt-2",
+      "seed": 1001,
+      "ssim": 0.6031,
+      "phash_distance": 18.312
+    }
+  ]
+}

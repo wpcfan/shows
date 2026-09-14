@@ -1,0 +1,14 @@
+id: abandoned-hospital
+name_cn: 废弃医院
+name_en: Abandoned Hospital
+description_cn: |
+  三层社区医院，1990 年代苏式建筑。走廊宽，日光灯管大多熄灭，仅剩几根闪烁。
+  墙皮大面积剥落，地砖裂开，翻倒的轮椅和污浊的输液架。空气中浮尘。
+  一楼大厅被砸碎的玻璃门。
+appearance_en: >-
+  1990s Soviet-style community hospital, three floors. Wide corridors,
+  flickering fluorescent tubes, most lights dead. Large patches of peeling
+  paint, cracked floor tiles, overturned wheelchairs, dirty IV stands.
+  Dust motes floating in pale light. Shattered glass entrance doors on
+  ground floor. Long shadows, eerie silence.
+prompt_inject: true

@@ -1,0 +1,33 @@
+{
+  "output_dir": "experiments/e1/data/verify-480p",
+  "adapter": "experiments/e1/adapters/pippit.js",
+  "delay_ms": 3000,
+  "max_retries": 1,
+  "synthetic": false,
+  "groups": [
+    {
+      "id": "A",
+      "params_position": "first_frame",
+      "adapter_params": {
+        "image_mode": "single"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01",
+      "layer": "closeup",
+      "prompt": "图片 1 为首帧。不要字幕，不要 BGM。Locked static shot, subtle natural micro-movement only, no camera movement, no subject motion change.",
+      "image": "assets/calib-keyframe-01.png",
+      "seeds": [
+        1,
+        2
+      ],
+      "duration": 5,
+      "ratio": "16:9",
+      "resolution": "480p",
+      "model": "Seedance_2.0_mini_lite"
+    }
+  ]
+}

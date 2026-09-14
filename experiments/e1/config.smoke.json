@@ -1,0 +1,38 @@
+{
+  "output_dir": "experiments/e1/data/smoke",
+  "adapter": "experiments/e1/adapters/pippit.js",
+  "delay_ms": 3000,
+  "max_retries": 1,
+  "synthetic": false,
+  "groups": [
+    {
+      "id": "A_first_last_same",
+      "params_position": "first_frame",
+      "adapter_params": { "generate_type": 1, "image_mode": "first_last_same" }
+    },
+    {
+      "id": "B_reference",
+      "params_position": "reference_image",
+      "adapter_params": { "image_mode": "single" }
+    },
+    {
+      "id": "C_none",
+      "params_position": null,
+      "adapter_params": { "image_mode": "none" }
+    }
+  ],
+  "cases": [
+    {
+      "scene": "scene-01",
+      "prompt_id": "prompt-01",
+      "layer": "closeup",
+      "prompt": "Locked static shot. Subtle natural micro-movement only, no camera movement, no subject motion change.",
+      "image": "../../characters/protagonist-hands/reference.jpg",
+      "seeds": [1, 2],
+      "duration": 5,
+      "ratio": "16:9",
+      "resolution": "720p",
+      "model": "Seedance_2.0_mini_lite"
+    }
+  ]
+}

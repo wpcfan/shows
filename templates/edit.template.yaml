@@ -1,0 +1,33 @@
+# 剪辑时间线模板 — 复制到 episodes/SxxExx-<slug>/edit.yaml 后填写
+# edit-episode.js 读取本文件 + manifest.json,按 timeline 裁切入出点并拼接
+
+output:
+  resolution: 720p           # 720p|1080p|480p
+  ratio: "16:9"               # 16:9|9:16|1:1|4:3|3:4
+  fps: 30
+
+# 时间线:每个条目引用一个 shot 的 take,指定入出点(秒)
+# take_id 必填(不再 fallback,正式剪辑必须锁定版本)
+timeline:
+  - shot_id: s01-shot-01
+    take_id: take-001
+    in_point: 0.0             # 秒,裁掉开头
+    out_point: 10.0           # 秒,裁掉结尾
+  # - shot_id: s01-shot-02
+  #   take_id: take-001
+  #   in_point: 1.5
+  #   out_point: 9.0
+
+# 必需镜头覆盖:manifest 中所有 shot 必须在 timeline 中,或在此显式跳过
+# 跳过必须列出(防止漏镜)
+skip_shots: []
+  # - s01-shot-03  # reason: cut for pacing
+
+# 音频轨(未实现 — 有配置会拒绝导出)
+audio: []
+
+# 多规格交付(可选)
+delivery: []
+  # - name: mobile-9x16-720p
+  #   resolution: 720p
+  #   ratio: "9:16"

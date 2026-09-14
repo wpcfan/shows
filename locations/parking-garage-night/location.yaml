@@ -1,0 +1,14 @@
+id: parking-garage-night
+name_cn: 地下停车场(夜间)
+name_en: Underground Parking Garage (Night)
+description_cn: |
+  地下两层停车场，混凝土墙面渗水渍。日光灯只剩几盏亮着，闪烁。
+  地面油污反光。废弃车辆积灰。柱子阴影深不见底。
+  出口坡道透进一线夜色。空气湿冷，回声空荡。
+appearance_en: >-
+  Underground two-level parking garage. Water stains on concrete walls.
+  Only a few fluorescent lights still working, flickering. Oil stains
+  reflecting on floor. Abandoned vehicles covered in dust. Column shadows
+  deep impenetrable. Exit ramp letting in a sliver of night sky. Cold damp
+  air, hollow echoes.
+prompt_inject: true

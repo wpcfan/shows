@@ -1,0 +1,11 @@
+# 新场景模板 — 复制到 locations/<id>/location.yaml 后填写
+# 用 GenerateImage 生成 reference.png 放到同目录
+
+id: <location-id>                    # 必须与目录名一致
+name_cn: <中文名>
+name_en: <English Name>
+description_cn: |
+  <中文场景描述,供人读>
+appearance_en: >-                    # 给 Seedance 的英文场景关键词,build-prompt.js 在引用此场景的 shot 里注入
+  <English location appearance keywords>
+prompt_inject: true                  # true 则 build-prompt.js 在引用此场景的 shot 里注入 appearance_en

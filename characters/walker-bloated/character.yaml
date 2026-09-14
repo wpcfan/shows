@@ -1,0 +1,13 @@
+id: walker-bloated
+name_cn: 膨胀丧尸(水面漂尸感)
+name_en: Bloated Walker
+description_cn: |
+  长期泡水或暴露潮湿环境的丧尸。全身浮肿膨胀，皮肤呈灰绿色，张力光泽。
+  动作极慢。五官肿胀变形。衣物被撑裂。
+appearance_en: >-
+  Bloated water-logged walker. Whole body swollen distended, skin greyish
+  green taut glossy from edema. Movement extremely slow. Facial features
+  distorted by swelling. Clothing split at seams from bloating.
+role: walker-archetype
+appears_in: []
+prompt_inject: true

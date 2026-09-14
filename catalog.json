@@ -1,0 +1,102 @@
+[
+  {
+    "episode": "S01E01",
+    "shot_id": "s02-shot-04",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-004.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T06:39:07.804Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s02-shot-05",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-005.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T06:50:27.074Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s03-shot-06",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-006.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T06:56:51.816Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s04-shot-07",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-007.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T06:59:51.412Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s05-shot-08",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-008.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T07:03:11.060Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s06-shot-09",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-009.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T07:05:24.779Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s06-shot-10",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-010.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T07:08:15.240Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s01-shot-01",
+    "take_id": "take-001",
+    "model": "Seedance_2.5",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-001-xyq25.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T07:54:11.565Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s01b-shot-02",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-002.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T06:45:00.000Z",
+    "error": null
+  },
+  {
+    "episode": "S01E01",
+    "shot_id": "s01b-shot-03",
+    "take_id": "take-001",
+    "model": "unknown",
+    "path": "/Users/wangpeng/workspace/shows/episodes/S01E01-pov/shots/shot-003.mp4",
+    "status": "selected",
+    "rendered_at": "2026-09-13T06:50:00.000Z",
+    "error": null
+  }
+]

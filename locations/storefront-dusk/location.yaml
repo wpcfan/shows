@@ -1,0 +1,15 @@
+id: storefront-dusk
+name_cn: 沿街店面(黄昏)
+name_en: Storefront (Dusk)
+description_cn: |
+  一间被洗劫一空的小便利店，玻璃门完好但落满灰。
+  货架空荡，地上散落包装纸和翻倒的冷柜。
+  内部昏暗，只有门口透进的黄昏余晖。角落阴影浓重。
+  外面街上可见废弃车辆剪影。
+appearance_en: >-
+  Looted small convenience store. Glass door intact but dust-covered.
+  Empty shelving, scattered packaging wrappers and toppled refrigerated
+  display case on floor. Interior dim, only dusk glow entering through
+  doorway. Heavy shadows in corners. Outside through glass: silhouettes of
+  abandoned vehicles.
+prompt_inject: true

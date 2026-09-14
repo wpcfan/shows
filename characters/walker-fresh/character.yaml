@@ -1,0 +1,14 @@
+id: walker-fresh
+name_cn: 新感染丧尸(新鲜转化)
+name_en: Fresh Walker
+description_cn: |
+  刚转化不久的丧尸。肤色灰白但尚未腐烂，瞳孔浑浊发白，少量血污，衣服基本完好。
+  动作略僵硬但仍能小跑。医院病号服、休闲服、工装均可能。
+appearance_en: >-
+  Fresh walker, recently turned human corpse. Greyish-white skin tone but
+  not yet decomposed. Cloudy milky white pupils. Minimal weathering on skin.
+  Clothing largely intact. Stiff but capable of lurching jog. Wearing
+  hospital gown, casual wear, or work clothes depending on scene.
+role: walker-archetype
+appears_in: [S01E01]
+prompt_inject: true

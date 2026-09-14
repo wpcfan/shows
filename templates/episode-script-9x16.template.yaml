@@ -1,0 +1,60 @@
+# 新一集剧本模板(竖屏 9:16) — 复制到 episodes/SxxExx-<slug>/script.yaml 后填写
+# 规则:description_cn 用中文(人读),prompt_en 用英文(给 Seedance)
+# V2: style_en 显式风格(不再随机注入),state_in/out 连续性追踪
+#
+# 画幅(PRD §3.7 / §4):
+#   ratio 仅 series → episode 两级;shot 级 ratio 默认拒绝,
+#   只有显式设置 allow_mixed_ratio: true 才允许混合画幅。
+#
+# 竖屏安全区(PRD §4 硬性件,模板定死):
+#   9:16 成片字幕烧录区:画面上下各留 15% 安全区,
+#   即 |y| < 15% 高度为顶部安全区、y > 85% 高度为底部安全区,字幕不得进入。
+#   构图主体与关键信息保持在中间 70% 高度内。
+
+episode: SxxExx
+title: <集标题>
+logline_cn: <一句话梗概>
+style_preset: walking-dead   # 引用 style-guide.md (参考词库,不再自动注入)
+
+# 默认参数,可在每个 shot 单独覆盖
+defaults:
+  ratio: "9:16"          # 竖屏(episode 级画幅;shot 级覆盖默认被拒)
+  resolution: 720p
+  duration: 8
+
+# 场景列表
+scenes:
+  - id: s01
+    location: <location-id>          # 引用 locations/<id>/location.yaml
+    time_cn: <时间,如 清晨/黄昏/夜间>
+    weather_cn: <天气,如 阴天/晴/雨>
+    shots:
+      - id: s01-shot-01
+        duration: 8                  # 覆盖 defaults.duration
+        description_cn: |
+          <中文动作描述,人读;注意竖屏构图,主体置于中间 70% 高度>
+        prompt_en: |                  # 给 Seedance 的英文核心
+          <English prompt core>
+        # V2 显式风格关键词(参考 style-guide.md 词库,不再随机注入)
+        # 留空则不注入风格(打印 warning)
+        style_en: "desaturated, handheld, shallow depth of field, tense, dust-lit beams"
+        camera: handheld, slight shake   # 镜头语言提示(拼入 prompt,不触发随机注入)
+        characters: [<character-id>]     # 引用 characters/<id>/character.yaml,可多个
+        location: <location-id>          # 可选,若与 scene.location 不同
+        references: []                  # 可选,额外引用图片路径
+        resolution: 720p                # 可选,覆盖 defaults.resolution
+        no_style_inject: false          # 可选,true=跳过 style_en 和 camera(明亮场景用)
+
+        # 连续性追踪(可选,人类审查 + 参考图生成用,不自动注入 prompt)
+        beat_cn: "主角醒来,建立世界"     # 本镜叙事目的
+        state_in:                        # 入场状态
+          costume: "深灰卫衣,战术手套"
+          wounds: "无"
+          held: "无"
+          orientation: "仰面朝上"
+        state_out:                       # 出场状态
+          costume: "深灰卫衣,战术手套"
+          wounds: "无"
+          held: "无"
+          orientation: "面朝大海坐姿"
+        transition: cut                  # 与下一镜衔接: cut|match-cut|cross-fade|fade

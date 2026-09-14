@@ -1,0 +1,17 @@
+id: protagonist-hands
+name_cn: 主角(POV)
+name_en: The Survivor (POV)
+description_cn: |
+  S01 全季仅从第一视角 (POV) 出现，全程不露正脸。
+  脏污、布满细小疤痕的双手。左手腕戴一块摔碎表盘的电子表，永远停在 03:14。
+  深灰连帽卫衣袖口卷起。右手戴黑色战术手套，食指位置缺失(被咬断)。
+  暗示主角本身可能是丧尸(灰白皮肤、动作僵硬)但全程用"脏污生存者"外表误导观众。
+appearance_en: >-
+  First-person POV survivor, face never shown. Grimy scar-covered greyish
+  hands. Left wrist wears a cracked digital watch stopped at 03:14. Dark
+  grey hoodie sleeves rolled up. Black tactical glove on right hand with
+  missing index finger. Skin tone slightly greyish but plausibly just
+  dirt-covered.
+role: protagonist
+appears_in: [S01E01]
+prompt_inject: true

@@ -1,0 +1,16 @@
+id: protagonist-zombie-face
+name_cn: 主角反转脸(丧尸态)
+name_en: The Survivor (Twist Reveal)
+description_cn: |
+  仅在 S01E01 第 10 镜(反转)使用的定妆照。
+  一张腐败丧尸脸特写：灰白皮肤、瞳孔浑浊发白、嘴角干涸血迹、左侧颧骨露出白骨、左眼眶凹陷。
+  玻璃门倒影里映出这张脸——暗示主角其实一直是丧尸。
+appearance_en: >-
+  Gaunt weathered face close-up. Grey-white desaturated skin, milky clouded
+  pupils, weathered cracked texture around mouth, left cheek gaunt and
+  sunken, left eye socket deeply shadowed. Eerie stillness. The reflection
+  in the glass door reveals this face — implying the protagonist has been
+  one of them all along.
+role: twist
+appears_in: [S01E01]
+prompt_inject: true

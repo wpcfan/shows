@@ -1,0 +1,14 @@
+id: city-street-overcast
+name_cn: 废弃城市街道(阴天)
+name_en: Abandoned City Street (Overcast)
+description_cn: |
+  阴天下的城市主干道。废弃车辆横七竖八堵死车道，部分车门大开。
+  路面裂开长草，纸张和灰尘在风中飘飞。商铺招牌歪斜破碎。
+  远处大楼玻璃黑洞洞的窗。无人。空旷、压抑、灰调。
+appearance_en: >-
+  City main road under overcast sky. Abandoned vehicles randomly blocking
+  lanes, some doors left open. Pavement cracked with weeds growing through.
+  Papers and dust drifting in wind. Shop signs tilted broken. Distant
+  buildings with dark empty window sockets. No people. Vast oppressive
+  grey-toned emptiness.
+prompt_inject: true

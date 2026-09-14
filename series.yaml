@@ -1,0 +1,47 @@
+# 系列圣经 — 末日僵尸短片
+title: 末日僵尸短片系列
+title_en: The Dead Walk
+logline_cn: 一组仿《行尸走肉》风格的末日僵尸短片。每集一个独立故事，共享同一末日城市世界观。
+style_preset: walking-dead   # 引用 style-guide.md
+
+# Seedance 全局默认参数 (script.yaml 可在 defaults 里覆盖)
+seedance_defaults:
+  ratio: "16:9"
+  resolution: 720p
+  duration: 8
+
+# 全局拍摄约束
+constraints:
+  - 首季(S01)主角全程第一视角 (POV)，不露正脸 — 规避跨镜头面孔漂移
+  - 丧尸设计遵循三原型：walker-fresh / walker-decayed / walker-bloated
+  - 暴力描写遵循 style-guide.md 的 gore 规则：克制、暗示、不渲染血浆喷溅
+  - 每集结尾留悬念或反转，行尸走肉式冷峻收尾
+
+# 已登记角色 (新增角色后在 characters/ 下建子目录并在此登记)
+characters:
+  - id: protagonist-hands
+    role: protagonist
+    note: POV 主角的手+表定妆照，全程不露脸
+  - id: protagonist-zombie-face
+    role: twist
+    note: 反转脸，仅在 S01E01 末镜使用
+  - id: walker-fresh
+    role: walker-archetype
+  - id: walker-decayed
+    role: walker-archetype
+  - id: walker-bloated
+    role: walker-archetype
+
+# 已登记场景
+locations:
+  - abandoned-hospital
+  - city-street-overcast
+  - alley-dusk
+  - storefront-dusk
+  - parking-garage-night
+
+# 已登记集数
+episodes:
+  - id: S01E01-pov
+    title_cn: 第一视角 / POV
+    logline_cn: 第一视角主角穿越废弃城市，屠戮丧尸、躲避追逐，全程不露脸。结尾镜中映出丧尸脸——主角也是丧尸？

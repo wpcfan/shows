@@ -1,0 +1,59 @@
+{
+  "_note": "E1 预注册模板(占位值)。真实实验必须先跑『校准实验』,据此填写 delta_preregistered(Δ)与 ssim_abs_min(A 组绝对门槛),并把 delta_frozen_at 设为两者冻结当下的 UTC 时间;冻结后、在查看正式实验结果前不得再改。缺失任一字段 tools/e1-report.js 会拒绝出结论(exit 2)。mock 演练可原样使用本模板。",
+  "_instructions": [
+    "1) 先用少量样本跑校准实验,观察 A/B/C 的 SSIM 分布。",
+    "2) 选定 delta_preregistered(建议初值 0.1)与 ssim_abs_min(A 组绝对质量门槛)。",
+    "3) 写入 delta_frozen_at(UTC ISO8601),然后才允许查看正式实验结果。",
+    "4) 同步替换 interface_name / interface_version / params_position / experiment_date 为真实接口信息。",
+    "5) metrics.ssim.impl/version/params 必须记录实际使用的实现;duration_value_range 与 lipsync 必须复核并填 verified_at。"
+  ],
+  "meta": {
+    "interface_name": "REPLACE_ME-interface-name",
+    "interface_version": "0.0.0",
+    "params_position": "first_frame",
+    "experiment_date": "1970-01-01",
+    "delta_preregistered": 0.1,
+    "ssim_abs_min": 0.8,
+    "delta_frozen_at": "1970-01-01T00:00:00Z",
+    "metrics": {
+      "ssim": {
+        "impl": "ffmpeg-ssim",
+        "version": "REPLACE_ME-ffmpeg-version",
+        "params": {
+          "window": "8x8",
+          "gaussian": false,
+          "K1": 0.01,
+          "K2": 0.03,
+          "data_range": 255,
+          "channels": "rgb24-all",
+          "resize": "512x512-bilinear",
+          "cover_crop": "to_video_aspect"
+        },
+        "preprocessing": {
+          "resize": "512x512-bilinear",
+          "color_space": "sRGB",
+          "sharpen": false,
+          "cover_crop": "to_video_aspect"
+        }
+      },
+      "secondary": {
+        "field": "phash_distance",
+        "impl": "e1-metrics.dct-phash",
+        "version": "1.0.0"
+      }
+    },
+    "bootstrap_iterations": 1000,
+    "duration_value_range": [
+      1,
+      30
+    ],
+    "lipsync": {
+      "supported": true,
+      "source": "小云雀《Seedance 2.5 关键更新速览》wiki W5tHwoZIDi12dbk2z3KcFkuUnsf（手册示例：对白场景“准确口型同步”）",
+      "verified_at": "2026-09-14",
+      "note": "依据官方手册示例；M1 实测复核仍待做"
+    },
+    "synthetic": false,
+    "interface_capabilities_note": "单次时长上限 30s；首/尾帧走 R2V prompt 首句声明；参考图不能当首帧；素材≤30图/10视频/10音频（总30s）；480p+超分降本；无 seed。详见 experiments/e1/pippit-seedance25-capabilities.md"
+  }
+}
